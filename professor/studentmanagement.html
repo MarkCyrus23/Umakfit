@@ -1,0 +1,2114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>UmakFit - Student Management</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Manrope:600,800|Inter:300,500,400,700" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * { -webkit-font-smoothing: antialiased; box-sizing: border-box; }
+        body { font-family: 'Inter', Helvetica, sans-serif; margin: 0; padding: 0; background-color: #f6f6f6; }
+        
+        /* Header Styles */
+        .header-top { 
+            background-color: #ffffff; 
+            padding: 15px 0; 
+            box-shadow: 0 2px 10px rgba(0,0,0,0.08); 
+            position: fixed; 
+            top: 0; 
+            width: 100%; 
+            z-index: 1000; 
+            border-bottom: 1px solid #e2e8f0;
+        }
+        .header-top .container { 
+            display: flex; 
+            justify-content: space-between; 
+            align-items: center; 
+        }
+        .logo-text { 
+            font-family: "Inter", Helvetica; 
+            font-weight: 700; 
+            color: #1e3a8a; 
+            font-size: 24px; 
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .logo-text i {
+            color: #f59e0b;
+            font-size: 26px;
+        }
+        .header-actions { 
+            display: flex; 
+            align-items: center; 
+            gap: 15px; 
+        }
+        .logout-btn { 
+            padding: 8px 20px; 
+            background: linear-gradient(90deg, rgba(251, 191, 36, 1) 0%, rgba(245, 158, 11, 1) 100%); 
+            border: none; 
+            border-radius: 8px; 
+            color: #000; 
+            font-weight: 600; 
+            font-size: 14px; 
+            cursor: pointer; 
+            transition: all 0.3s; 
+            box-shadow: 0 2px 4px rgba(245, 158, 11, 0.3);
+        }
+        .logout-btn:hover { 
+            transform: translateY(-2px); 
+            box-shadow: 0 4px 8px rgba(245, 158, 11, 0.4); 
+        }
+        .account-circle { 
+            width: 44px; 
+            height: 44px; 
+            cursor: pointer; 
+            border-radius: 50%;
+            border: 2px solid #e2e8f0;
+            transition: all 0.3s;
+        }
+        .account-circle:hover {
+            border-color: #f59e0b;
+        }
+        
+        /* Navigation Styles */
+        .nav-section { 
+            background: linear-gradient(180deg, rgba(30, 58, 138, 1) 0%, rgba(59, 130, 246, 1) 100%); 
+            padding: 20px 0; 
+            margin-top: 74px; 
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+        .nav-container {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+        .nav-brand { 
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            font-family: "Manrope", Helvetica; 
+            font-weight: 800; 
+            font-size: 28px; 
+            background: linear-gradient(90deg, rgba(245, 158, 11, 1) 0%, rgba(255, 229, 0, 1) 100%); 
+            -webkit-background-clip: text; 
+            background-clip: text; 
+            -webkit-text-fill-color: transparent;
+            margin: 0;
+        }
+        .nav-brand-logo {
+            height: 60px;
+            width: auto;
+        }
+        .nav-pills-custom { 
+            display: flex; 
+            flex-wrap: wrap; 
+            gap: 8px; 
+            padding: 0; 
+            margin: 0;
+        }
+        .nav-pills-custom .nav-link { 
+            font-family: "Manrope", Helvetica; 
+            font-weight: 600; 
+            color: #000000; 
+            font-size: 14px; 
+            padding: 12px 18px;
+            border-radius: 8px; 
+            background-color: #ffffff; 
+            transition: all 0.3s; 
+            border: none; 
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+        }
+        .nav-pills-custom .nav-link.active { 
+            background: linear-gradient(90deg, rgba(251, 191, 36, 1) 0%, rgba(245, 158, 11, 1) 100%); 
+            box-shadow: 0 4px 8px rgba(245, 158, 11, 0.3);
+        }
+        .nav-pills-custom .nav-link:hover { 
+            transform: translateY(-2px); 
+            box-shadow: 0 4px 8px rgba(0,0,0,0.15); 
+        }
+        
+        /* Main Content */
+        .main-content { 
+            padding: 40px 0 80px 0; 
+            min-height: calc(100vh - 200px); 
+        }
+        
+        /* Info Banner */
+        .info-banner {
+            background: white;
+            border-radius: 16px;
+            padding: 25px 30px;
+            margin-bottom: 30px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+            border: 1px solid #e2e8f0;
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+        .info-banner-icon {
+            width: 55px;
+            height: 55px;
+            flex-shrink: 0;
+        }
+        .info-banner-content {
+            flex: 1;
+        }
+        .info-banner-title {
+            font-family: "Inter", Helvetica;
+            font-weight: 700;
+            color: #1e3a8a;
+            font-size: 28px;
+            margin-bottom: 5px;
+        }
+        .info-banner-subtitle {
+            font-family: "Inter", Helvetica;
+            font-weight: 700;
+            color: #1e3a8a;
+            font-size: 14px;
+        }
+        
+        /* Section Styles */
+        .management-section {
+            background: white;
+            border-radius: 16px;
+            padding: 25px;
+            margin-bottom: 30px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+            border: 1px solid #e2e8f0;
+        }
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 25px;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+        .section-title {
+            font-family: "Inter", Helvetica;
+            font-weight: 700;
+            color: #1e3a8a;
+            font-size: 22px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .section-actions {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+        .btn-primary-custom {
+            background: linear-gradient(90deg, rgba(30, 58, 138, 1) 0%, rgba(59, 130, 246, 1) 100%);
+            border: none;
+            border-radius: 8px;
+            padding: 10px 20px;
+            color: white;
+            font-family: "Inter", Helvetica;
+            font-weight: 600;
+            font-size: 14px;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .btn-primary-custom:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(30, 58, 138, 0.3);
+        }
+        .btn-secondary-custom {
+            background: #f1f5f9;
+            border: 1px solid #e2e8f0;
+            border-radius: 8px;
+            padding: 10px 20px;
+            color: #475569;
+            font-family: "Inter", Helvetica;
+            font-weight: 600;
+            font-size: 14px;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .btn-secondary-custom:hover {
+            background: #e2e8f0;
+            transform: translateY(-1px);
+        }
+        
+        /* Search and Filter */
+        .search-filter-bar {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+        .search-box {
+            position: relative;
+            flex: 1;
+            min-width: 250px;
+        }
+        .search-box input {
+            width: 100%;
+            height: 42px;
+            border: 1px solid #e2e8f0;
+            border-radius: 8px;
+            padding: 10px 15px 10px 40px;
+            font-family: "Inter", Helvetica;
+            font-size: 14px;
+            color: #475569;
+            background: #f8fafc;
+            transition: all 0.3s;
+        }
+        .search-box input:focus {
+            outline: none;
+            border-color: #3b82f6;
+            background: white;
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+        }
+        .search-box i {
+            position: absolute;
+            left: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #64748b;
+            font-size: 14px;
+        }
+        .filter-select {
+            min-width: 200px;
+        }
+        .filter-select select {
+            width: 100%;
+            height: 42px;
+            border: 1px solid #e2e8f0;
+            border-radius: 8px;
+            padding: 0 15px;
+            font-family: "Inter", Helvetica;
+            font-size: 14px;
+            color: #475569;
+            background: #f8fafc;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        .filter-select select:focus {
+            outline: none;
+            border-color: #3b82f6;
+            background: white;
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+        }
+        
+        /* Table Styles */
+        .table-responsive {
+            overflow-x: auto;
+            border-radius: 8px;
+            border: 1px solid #e2e8f0;
+            background: white;
+        }
+        .custom-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        .custom-table thead {
+            background: linear-gradient(90deg, #f8fafc 0%, #f1f5f9 100%);
+        }
+        .custom-table th {
+            font-family: "Inter", Helvetica;
+            font-weight: 600;
+            color: #475569;
+            font-size: 12px;
+            text-align: left;
+            padding: 16px 12px;
+            border-bottom: 2px solid #e2e8f0;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            white-space: nowrap;
+        }
+        .custom-table td {
+            font-family: "Inter", Helvetica;
+            font-weight: 500;
+            color: #1e293b;
+            font-size: 14px;
+            padding: 16px 12px;
+            border-bottom: 1px solid #f1f5f9;
+            vertical-align: middle;
+        }
+        .custom-table tbody tr {
+            transition: all 0.3s;
+        }
+        .custom-table tbody tr:hover {
+            background-color: #f8fafc;
+        }
+        .custom-table tbody tr:last-child td {
+            border-bottom: none;
+        }
+        /* Fix for long email in student modal */
+.info-value-email {
+    word-break: break-all; /* Para mag-break ang mahabang word */
+    font-size: 13px;       /* Medyo paliitin para kasya */
+    color: #475569;
+}
+
+/* Optional: Kung gusto mo ellipsis (...) kapag sobrang haba */
+.info-value-email.truncate {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+        
+        /* Status Badges */
+        .status-badge {
+            display: inline-block;
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-family: "Inter", Helvetica;
+            font-weight: 600;
+            font-size: 12px;
+            text-align: center;
+            min-width: 80px;
+        }
+        .status-active {
+            background-color: #d1fae5;
+            color: #065f46;
+            border: 1px solid #a7f3d0;
+        }
+        .status-inactive {
+            background-color: #fee2e2;
+            color: #991b1b;
+            border: 1px solid #fecaca;
+        }
+        .status-pending {
+            background-color: #fef3c7;
+            color: #92400e;
+            border: 1px solid #fde68a;
+        }
+        
+        /* Action Buttons */
+        .action-buttons {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+        .btn-action {
+            padding: 6px 12px;
+            border: none;
+            border-radius: 6px;
+            font-family: "Inter", Helvetica;
+            font-weight: 600;
+            font-size: 12px;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            white-space: nowrap;
+        }
+        .btn-action:hover {
+            transform: translateY(-1px);
+        }
+        .btn-view {
+            background: #10b981;
+            color: white;
+        }
+        .btn-view:hover {
+            background: #059669;
+            box-shadow: 0 2px 4px rgba(16, 185, 129, 0.3);
+        }
+        .btn-attempt {
+            background: #f59e0b;
+            color: white;
+        }
+        .btn-attempt:hover {
+            background: #d97706;
+            box-shadow: 0 2px 4px rgba(245, 158, 11, 0.3);
+        }
+        
+        /* Modal Styles */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 2000;
+            padding: 20px;
+        }
+        .modal-content {
+            background-color: white;
+            border-radius: 12px;
+            width: 100%;
+            max-width: 800px;
+            max-height: 90vh;
+            overflow-y: auto;
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+        }
+        .modal-header {
+            padding: 20px 25px;
+            border-bottom: 1px solid #e2e8f0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .modal-title {
+            font-family: "Inter", Helvetica;
+            font-weight: 600;
+            color: #1e3a8a;
+            font-size: 20px;
+            margin: 0;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .close-modal {
+            background: none;
+            border: none;
+            font-size: 24px;
+            cursor: pointer;
+            color: #64748b;
+            transition: color 0.3s;
+            width: 32px;
+            height: 32px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 6px;
+        }
+        .close-modal:hover {
+            background: #f1f5f9;
+            color: #1e293b;
+        }
+        .modal-body {
+            padding: 25px;
+        }
+        .form-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+        @media (max-width: 768px) {
+            .form-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+        .form-group {
+            margin-bottom: 20px;
+        }
+        .form-group.full-width {
+            grid-column: 1 / -1;
+        }
+        .form-label {
+            display: block;
+            font-family: "Inter", Helvetica;
+            font-weight: 500;
+            color: #374151;
+            font-size: 14px;
+            margin-bottom: 8px;
+        }
+        .form-label.required::after {
+            content: " *";
+            color: #ef4444;
+        }
+        .form-control {
+            width: 100%;
+            padding: 10px 12px;
+            border: 1px solid #d1d5db;
+            border-radius: 6px;
+            font-family: "Inter", Helvetica;
+            font-size: 14px;
+            color: #374151;
+            transition: all 0.3s;
+        }
+        .form-control:focus {
+            outline: none;
+            border-color: #3b82f6;
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+        }
+        .form-select {
+            width: 100%;
+            padding: 10px 12px;
+            border: 1px solid #d1d5db;
+            border-radius: 6px;
+            font-family: "Inter", Helvetica;
+            font-size: 14px;
+            color: #374151;
+            background-color: white;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        .form-select:focus {
+            outline: none;
+            border-color: #3b82f6;
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+        }
+        .modal-footer {
+            padding: 20px 25px;
+            border-top: 1px solid #e2e8f0;
+            display: flex;
+            justify-content: flex-end;
+            gap: 10px;
+        }
+        .btn-cancel {
+            background-color: #6b7280;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            padding: 10px 20px;
+            font-family: "Inter", Helvetica;
+            font-weight: 500;
+            font-size: 14px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        .btn-cancel:hover {
+            background-color: #4b5563;
+        }
+        .btn-submit {
+            background: linear-gradient(90deg, rgba(30, 58, 138, 1) 0%, rgba(59, 130, 246, 1) 100%);
+            color: white;
+            border: none;
+            border-radius: 6px;
+            padding: 10px 20px;
+            font-family: "Inter", Helvetica;
+            font-weight: 500;
+            font-size: 14px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        .btn-submit:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 4px 8px rgba(30, 58, 138, 0.3);
+        }
+        .btn-submit:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none;
+        }
+        
+        /* Empty State */
+        .empty-state {
+            padding: 60px 40px;
+            text-align: center;
+            background: #f8fafc;
+            border-radius: 8px;
+            margin: 20px;
+        }
+        .empty-icon {
+            font-size: 64px;
+            margin-bottom: 20px;
+            opacity: 0.4;
+            color: #64748b;
+        }
+        .empty-title {
+            font-family: "Inter", Helvetica;
+            font-weight: 700;
+            color: #1f2937;
+            font-size: 20px;
+            margin-bottom: 12px;
+        }
+        .empty-text {
+            font-family: "Inter", Helvetica;
+            font-weight: 400;
+            color: #64748b;
+            font-size: 14px;
+            line-height: 1.6;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        
+        /* Loading Screen */
+        .loading {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(255,255,255,0.95);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+            flex-direction: column;
+            gap: 20px;
+        }
+        .loading-text {
+            font-family: "Inter", Helvetica;
+            font-weight: 500;
+            color: #475569;
+            font-size: 16px;
+        }
+        .spinner {
+            border: 4px solid #f1f5f9;
+            border-top: 4px solid #3b82f6;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            animation: spin 1s linear infinite;
+        }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        /* Student Info Card */
+        .student-info-card {
+            background: #f8fafc;
+            border-radius: 12px;
+            padding: 20px;
+            border: 1px solid #e2e8f0;
+            margin-bottom: 20px;
+        }
+        .student-info-header {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid #e2e8f0;
+        }
+        .student-avatar {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            font-weight: 700;
+            color: white;
+        }
+        .student-basic-info {
+            flex: 1;
+        }
+        .student-name {
+            font-family: "Inter", Helvetica;
+            font-weight: 700;
+            color: #1e3a8a;
+            font-size: 20px;
+            margin-bottom: 5px;
+        }
+        .student-id {
+            font-family: "Inter", Helvetica;
+            font-weight: 500;
+            color: #64748b;
+            font-size: 14px;
+        }
+        .student-info-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+        }
+        .info-item {
+            background: white;
+            padding: 15px;
+            border-radius: 8px;
+            border: 1px solid #e2e8f0;
+        }
+        .info-label {
+            font-family: "Inter", Helvetica;
+            font-weight: 600;
+            color: #64748b;
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 5px;
+        }
+        .info-value {
+            font-family: "Inter", Helvetica;
+            font-weight: 500;
+            color: #1e293b;
+            font-size: 14px;
+        }
+        
+        /* Activities Table */
+        .activities-table {
+            margin-top: 20px;
+        }
+        .activities-table th {
+            background: #f1f5f9;
+            font-weight: 600;
+            font-size: 12px;
+            padding: 12px;
+            border-bottom: 1px solid #e2e8f0;
+        }
+        .activities-table td {
+            padding: 12px;
+            border-bottom: 1px solid #f1f5f9;
+            vertical-align: middle;
+        }
+        .score-badge {
+            display: inline-block;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 12px;
+            font-weight: 600;
+        }
+        .score-excellent {
+            background-color: #d1fae5;
+            color: #065f46;
+        }
+        .score-good {
+            background-color: #fef3c7;
+            color: #92400e;
+        }
+        .score-poor {
+            background-color: #fee2e2;
+            color: #991b1b;
+        }
+        
+        /* Attempt Form */
+        .attempt-form {
+            background: #f8fafc;
+            border-radius: 8px;
+            padding: 20px;
+            border: 1px solid #e2e8f0;
+            margin-top: 20px;
+        }
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            margin-bottom: 15px;
+        }
+        @media (max-width: 576px) {
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        /* Section Info Card */
+        .section-info-card {
+            background: #f8fafc;
+            border-radius: 12px;
+            padding: 20px;
+            border: 1px solid #e2e8f0;
+            margin-bottom: 20px;
+        }
+        .section-info-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid #e2e8f0;
+        }
+        .section-basic-info {
+            flex: 1;
+        }
+        .section-name {
+            font-family: "Inter", Helvetica;
+            font-weight: 700;
+            color: #1e3a8a;
+            font-size: 24px;
+            margin-bottom: 5px;
+        }
+        .section-details {
+            display: flex;
+            gap: 20px;
+            font-size: 14px;
+            color: #64748b;
+        }
+        .section-info-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+        }
+        
+        /* Responsive */
+        @media (max-width: 992px) {
+            .nav-container {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            .nav-pills-custom {
+                width: 100%;
+                justify-content: center;
+            }
+        }
+        @media (max-width: 768px) {
+            .header-top .container { padding: 0 15px; }
+            .logo-text { font-size: 20px; }
+            .section-header {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            .section-actions {
+                width: 100%;
+                justify-content: flex-start;
+            }
+            .search-filter-bar {
+                flex-direction: column;
+            }
+            .search-box, .filter-select {
+                width: 100%;
+                min-width: auto;
+            }
+            .custom-table {
+                font-size: 12px;
+            }
+            .custom-table th,
+            .custom-table td {
+                padding: 12px 8px;
+            }
+            .action-buttons {
+                flex-direction: column;
+                gap: 5px;
+            }
+            .modal-content {
+                margin: 10px;
+                max-height: calc(100vh - 20px);
+            }
+        }
+        .umak-logo {
+            height: 40px;
+            width: auto;
+        }
+    </style>
+</head>
+<body>
+    <div id="loadingScreen" class="loading">
+        <div class="spinner"></div>
+        <div class="loading-text">Loading Student Management...</div>
+    </div>
+    
+    <div id="mainContent" style="display: none;">
+        <div class="header-top">
+            <div class="container">
+                <div class="logo-text">
+                    <img class="umak-logo" src="umaklogo.png" alt="University of Makati">
+                    University of Makati
+                </div>
+                <div class="header-actions">
+                    <button class="logout-btn" onclick="handleLogout()">
+                        <i class="fas fa-sign-out-alt"></i> Logout
+                    </button>
+                    <img class="account-circle" src="https://c.animaapp.com/kboeAmgh/img/icon.svg" alt="Account">
+                </div>
+            </div>
+        </div>
+        
+        <div class="nav-section">
+            <div class="container">
+                <div class="nav-container">
+                    <div class="nav-brand">
+                        <img src="logo.png" alt="UMakFit Logo" class="nav-brand-logo">
+                        UMakFit
+                    </div>
+                    <ul class="nav nav-pills-custom">
+                        <li class="nav-item">
+                            <a class="nav-link" href="professor.html">
+                                <i class="fas fa-tachometer-alt"></i> Dashboard
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link active" href="#">
+                                <i class="fas fa-users"></i> Student Management
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="addactivities.html">
+                                <i class="fas fa-dumbbell"></i> Add Activities
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="addlesson.html">
+                                <i class="fas fa-book-open"></i> Add Lesson
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="monitoringactivities.html">
+                                <i class="fas fa-chart-bar"></i> Monitoring Activities
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="grades.html">
+                                <i class="fas fa-graduation-cap"></i> Grades
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        
+        <div class="main-content">
+            <div class="container">
+                <div class="info-banner">
+                    <img class="info-banner-icon" src="https://c.animaapp.com/kboeAmgh/img/image-13@2x.png" alt="Icon">
+                    <div class="info-banner-content">
+                        <div class="info-banner-title">Student Management</div>
+                        <div class="info-banner-subtitle">View student scores and add additional attempts</div>
+                    </div>
+                </div>
+                
+                <!-- My Sections (View Only) -->
+                <div class="management-section">
+                    <div class="section-header">
+                        <div class="section-title">
+                            <i class="fas fa-layer-group"></i> My Assigned Sections
+                        </div>
+                        <div class="section-actions">
+                            <button class="btn-secondary-custom" onclick="refreshData()">
+                                <i class="fas fa-sync-alt"></i> Refresh
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <div class="search-filter-bar">
+                        <div class="search-box">
+                            <i class="fas fa-search"></i>
+                            <input type="text" id="searchSections" placeholder="Search sections..." onkeyup="filterSections()">
+                        </div>
+                    </div>
+                    
+                    <div class="table-responsive">
+                        <table class="custom-table" id="sectionsTable">
+                            <thead>
+                                <tr>
+                                    <th>Section Name</th>
+                                    <th>Year Level</th>
+                                    <th>Number of Students</th>
+                                    <th>Semester</th>
+                                    <th>Academic Year</th>
+                                    <th>Status</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody id="sectionsTableBody">
+                                <tr>
+                                    <td colspan="7">
+                                        <div class="empty-state">
+                                            <div class="empty-icon">🏫</div>
+                                            <div class="empty-title">No Sections Assigned</div>
+                                            <div class="empty-text">You haven't been assigned to any sections yet. Please contact the Dean or Head Admin.</div>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                
+                <!-- Student List -->
+                <div class="management-section">
+                    <div class="section-header">
+                        <div class="section-title">
+                            <i class="fas fa-user-graduate"></i> Student Scores & Attempts
+                        </div>
+                        <div class="section-actions">
+                            <button class="btn-secondary-custom" onclick="exportStudents()">
+                                <i class="fas fa-file-export"></i> Export Scores
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <div class="search-filter-bar">
+                        <div class="search-box">
+                            <i class="fas fa-search"></i>
+                            <input type="text" id="searchStudents" placeholder="Search students by name or UMaK ID..." onkeyup="filterStudents()">
+                        </div>
+                        <div class="filter-select">
+                            <select id="filterSection" onchange="filterStudents()">
+                                <option value="">All Sections</option>
+                            </select>
+                        </div>
+                        <div class="filter-select">
+                            <select id="filterPerformance" onchange="filterStudents()">
+                                <option value="">All Performance</option>
+                                <option value="excellent">Excellent (90-100%)</option>
+                                <option value="good">Good (70-89%)</option>
+                                <option value="needs-improvement">Needs Improvement (0-69%)</option>
+                                <option value="no-attempts">No Attempts Yet</option>
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <div class="table-responsive">
+                        <table class="custom-table" id="studentsTable">
+                            <thead>
+                                <tr>
+                                    <th>UMaK ID</th>
+                                    <th>Student Name</th>
+                                    <th>Section</th>
+                                    <th>Total Attempts</th>
+                                    <th>Best Score</th>
+                                    <th>Average Score</th>
+                                    <th>Last Attempt</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody id="studentsTableBody">
+                                <tr>
+                                    <td colspan="8">
+                                        <div class="empty-state">
+                                            <div class="empty-icon">👥</div>
+                                            <div class="empty-title">No Students Found</div>
+                                            <div class="empty-text">No students are currently assigned to your sections.</div>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    
+                    <div style="margin-top: 20px; display: flex; justify-content: space-between; align-items: center; padding: 0 10px;">
+                        <div style="font-size: 14px; color: #64748b;">
+                            Showing <span id="studentCount">0</span> students
+                        </div>
+                        <div style="display: flex; gap: 10px;">
+                            <button class="btn-secondary-custom" onclick="previousPage()" style="padding: 6px 12px;">
+                                <i class="fas fa-chevron-left"></i> Previous
+                            </button>
+                            <span style="display: flex; align-items: center; font-size: 14px; color: #64748b;">
+                                Page <span id="currentPage">1</span> of <span id="totalPages">1</span>
+                            </span>
+                            <button class="btn-secondary-custom" onclick="nextPage()" style="padding: 6px 12px;">
+                                Next <i class="fas fa-chevron-right"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- View Section Details Modal -->
+    <div id="viewSectionModal" class="modal-overlay" style="display: none;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title">
+                    <i class="fas fa-layer-group"></i> Section Details
+                </h3>
+                <button class="close-modal" onclick="closeViewSectionModal()">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="section-info-card" id="sectionDetailsContent">
+                    <!-- Section details will be loaded here -->
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn-cancel" onclick="closeViewSectionModal()">Close</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- View Student Details & Add Attempt Modal -->
+    <div id="viewStudentModal" class="modal-overlay" style="display: none;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title">
+                    <i class="fas fa-user-circle"></i> Student Performance
+                </h3>
+                <button class="close-modal" onclick="closeViewStudentModal()">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="student-info-card" id="studentDetailsContent">
+                    <!-- Student details will be loaded here -->
+                </div>
+                
+                <!-- Activities/Actions Table -->
+                <div class="activities-table">
+                    <h4 style="margin-bottom: 15px; color: #1e3a8a;">
+                        <i class="fas fa-history"></i> Activity Attempts
+                    </h4>
+                    <div class="table-responsive">
+                        <table class="custom-table" id="attemptsTable">
+                            <thead>
+                                <tr>
+                                    <th>Date & Time</th>
+                                    <th>Activity Type</th>
+                                    <th>Score</th>
+                                    <th>Status</th>
+                                    <th>Duration</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody id="attemptsTableBody">
+                                <!-- Attempts will be loaded here -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                
+                <!-- Add New Attempt Form -->
+                <div class="attempt-form">
+                    <h4 style="margin-bottom: 15px; color: #1e3a8a;">
+                        <i class="fas fa-plus-circle"></i> Add New Attempt
+                    </h4>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label class="form-label required" for="attemptType">Activity Type</label>
+                            <select class="form-select" id="attemptType" required>
+                                <option value="">Select Activity</option>
+                                <option value="push-up">Push-up Test</option>
+                                <option value="sit-up">Sit-up Test</option>
+                                <option value="running">Running Test</option>
+                                <option value="flexibility">Flexibility Test</option>
+                                <option value="endurance">Endurance Test</option>
+                                <option value="other">Other Activity</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label required" for="attemptScore">Score (%)</label>
+                            <input type="number" class="form-control" id="attemptScore" min="0" max="100" placeholder="Enter score (0-100)" required>
+                        </div>
+                    </div>
+                    <div class="form-group full-width">
+                        <label class="form-label" for="attemptNotes">Notes (Optional)</label>
+                        <textarea class="form-control" id="attemptNotes" rows="2" placeholder="Any notes about this attempt..."></textarea>
+                    </div>
+                    <div class="modal-footer" style="padding: 15px 0 0 0; border-top: none;">
+                        <button class="btn-cancel" onclick="closeViewStudentModal()">Cancel</button>
+                        <button class="btn-submit" onclick="addNewAttempt()">
+                            <i class="fas fa-save"></i> Save Attempt
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/js/bootstrap.bundle.min.js"></script>
+   <script type="module">
+        import { 
+            initializeApp 
+        } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js';
+        import { 
+            getAuth, 
+            onAuthStateChanged, 
+            signOut,
+            createUserWithEmailAndPassword 
+        } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js';
+    
+    // Cloud Firestore
+    import { 
+        getFirestore,
+        collection,
+        query,
+        where,
+        getDocs,
+        getDoc,
+        addDoc,
+        updateDoc,
+        deleteDoc,
+        doc,
+        orderBy,
+        serverTimestamp,
+        limit,
+        Timestamp,
+        onSnapshot  // ITO ANG IMPORTANTENG IDAGDAG
+    } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js';
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyAgaLunqEf2gs6dSpF_sz1hV5XQ5Wm52jo",
+            authDomain: "umakfit-e3b1d.firebaseapp.com",
+            projectId: "umakfit-e3b1d",
+            storageBucket: "umakfit-e3b1d.appspot.com",
+            messagingSenderId: "276569891504",
+            appId: "1:276569891504:web:39b1732b519f4d8b785175"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+        const db = getFirestore(app);
+
+        // Global variables
+        window.currentUser = null;
+        window.sections = [];
+        window.students = [];
+        window.filteredStudents = [];
+        window.currentStudentId = null;
+        window.currentPage = 1;
+        window.itemsPerPage = 10;
+
+        // Load professor's assigned sections
+async function loadSections() {
+    try {
+        console.log('Loading sections for logged-in professor...');
+        console.log('Current user UID:', window.currentUser.uid);
+        console.log('DisplayName:', window.currentUser.displayName);
+        console.log('Email:', window.currentUser.email);
+
+        window.sections = [];
+
+        // STEP 1: Kunin muna ang EXACT professor name/email from users or professors collection
+        let professorFullName = null;
+        let professorEmail = window.currentUser.email;
+
+        // Try sa 'professors' collection
+        const profQuery = query(collection(db, 'professors'), where('email', '==', professorEmail));
+        const profSnap = await getDocs(profQuery);
+        if (!profSnap.empty) {
+            professorFullName = profSnap.docs[0].data().fullName || profSnap.docs[0].data().name;
+        }
+
+        // Kung wala, try sa 'users' collection (kung may role: professor)
+        if (!professorFullName) {
+            const userQuery = query(collection(db, 'users'), where('email', '==', professorEmail));
+            const userSnap = await getDocs(userQuery);
+            if (!userSnap.empty) {
+                const userData = userSnap.docs[0].data();
+                if (userData.role === 'professor') {
+                    professorFullName = userData.fullName || userData.name || window.currentUser.displayName;
+                }
+            }
+        }
+
+        // Final fallback
+        if (!professorFullName) {
+            professorFullName = window.currentUser.displayName || professorEmail.split('@')[0].toUpperCase();
+        }
+
+        console.log('Professor name to match in sections:', professorFullName);
+
+        // STEP 2: Kunin lahat ng sections at i-match flexibly
+        const sectionsSnapshot = await getDocs(collection(db, 'sections'));
+
+        sectionsSnapshot.forEach(sectionDoc => {
+            const data = sectionDoc.data();
+            const dbProfessor = (data.professor || '').toString().trim();
+
+            // Flexible matching — kahit anong format
+            const matches = 
+                dbProfessor === professorFullName ||
+                dbProfessor.toUpperCase().includes(professorFullName.toUpperCase()) ||
+                professorFullName.toUpperCase().includes(dbProfessor.toUpperCase()) ||
+                dbProfessor.replace(/[,.\s]/g, '') === professorFullName.replace(/[,.\s]/g, '');
+
+            if (matches) {
+                console.log(`MATCHED! Section: ${data.name} → Professor: "${dbProfessor}"`);
+
+                const studentCount = Array.isArray(data.students) ? data.students.length : 0;
+
+                window.sections.push({
+                    id: sectionDoc.id,
+                    name: data.name,
+                    yearLevel: data.yearLevel || extractYearLevel(data.name),
+                    studentCount: studentCount,
+                    semester: data.semester || 'N/A',
+                    academicYear: data.academicYear || 'N/A',
+                    status: 'active',
+                    professorName: dbProfessor,
+                    students: data.students || []
+                });
+            }
+        });
+
+        console.log(`Total sections loaded for this professor: ${window.sections.length}`);
+
+        // Update table
+        if (window.sections.length === 0) {
+            document.getElementById('sectionsTableBody').innerHTML = `
+                <tr>
+                    <td colspan="7">
+                        <div class="empty-state">
+                            <div class="empty-icon">Warning</div>
+                            <div class="empty-title">No Sections Assigned</div>
+                            <div class="empty-text">
+                                Logged in as: <strong>${professorEmail}</strong><br>
+                                Looking for professor name: <strong>"${professorFullName}"</strong><br><br>
+                                No matching section found. Contact admin if this is incorrect.
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+            `;
+        } else {
+            populateSectionsTable();
+            populateSectionFilters();
+        }
+
+    } catch (error) {
+        console.error('Error loading sections:', error);
+        alert('Error loading sections: ' + error.message);
+    }
+}
+function extractYearLevel(sectionName) {
+    if (!sectionName) return 'N/A';
+    
+    // Try Roman numerals first (like "III-A")
+    const romanNumerals = {
+        'I': '1',
+        'II': '2',
+        'III': '3',
+        'IV': '4',
+        'V': '5'
+    };
+    
+    // Check for Roman numerals at the beginning
+    const romanMatch = sectionName.match(/^(I{1,3}|IV|V)/);
+    if (romanMatch && romanMatch[0]) {
+        return romanNumerals[romanMatch[0]] || romanMatch[0];
+    }
+    
+    // Check for numeric year
+    const numericMatch = sectionName.match(/\d/);
+    if (numericMatch) {
+        return numericMatch[0];
+    }
+    
+    return 'N/A';
+}
+
+        // Load students for current professor's sections
+async function loadStudents() {
+    try {
+        console.log('=== LOADING STUDENTS FOR THIS PROFESSOR ===');
+
+        if (window.sections.length === 0) {
+            console.log('No sections assigned. Skipping student load.');
+            updateStudentsTable([]);
+            return;
+        }
+
+        window.students = [];
+        const seenStudentIds = new Set();
+
+        for (const section of window.sections) {
+            if (!section.students || !Array.isArray(section.students) || section.students.length === 0) {
+                continue;
+            }
+
+            for (const rawStudent of section.students) {
+                const studentId = rawStudent.studentId || rawStudent.student_id || rawStudent.email || 'unknown';
+                if (seenStudentIds.has(studentId)) continue;
+                seenStudentIds.add(studentId);
+
+                let firstName = '', lastName = '', fullName = rawStudent.name || 'Unknown Student';
+                if (fullName.includes(',')) {
+                    const parts = fullName.split(',').map(p => p.trim());
+                    lastName = parts[0];
+                    firstName = parts.slice(1).join(' ');
+                } else {
+                    const nameParts = fullName.split(' ');
+                    firstName = nameParts[0] || '';
+                    lastName = nameParts.slice(1).join(' ') || '';
+                }
+
+                let bestScore = 0;
+                let totalScore = 0;
+                let lastAttempt = null;
+                let totalAttempts = 0;
+
+                if (studentId && studentId !== 'unknown') {
+                    const attemptsQuery = query(collection(db, 'testResults'), where('studentId', '==', studentId));
+                    const snapshot = await getDocs(attemptsQuery);
+                    totalAttempts = snapshot.size;
+
+                    snapshot.forEach(doc => {
+                        const data = doc.data();
+                        const score = data.score || 0;
+                        totalScore += score;
+                        if (score > bestScore) bestScore = score;
+
+                        const attemptTime = data.submittedAt ? data.submittedAt.toDate() : null;
+                        if (attemptTime && (!lastAttempt || attemptTime > lastAttempt)) {
+                            lastAttempt = attemptTime;
+                        }
+                    });
+                }
+
+                const averageScore = totalAttempts > 0 ? Math.round(totalScore / totalAttempts) : 0;
+
+                const student = {
+                    id: studentId,
+                    umakId: rawStudent.student_id || rawStudent.studentId || 'N/A',
+                    firstName: firstName || 'Unknown',
+                    lastName: lastName || '',
+                    fullName: fullName,
+                    email: rawStudent.email || 'N/A',
+                    section: section.name,
+                    yearLevel: section.yearLevel || extractYearLevel(section.name),
+                    totalAttempts: totalAttempts,
+                    bestScore: bestScore,
+                    averageScore: averageScore,
+                    lastAttempt: lastAttempt,
+                    status: 'active'
+                };
+
+                console.log(`Student loaded: ${student.fullName} (${student.umakId}) → ${student.totalAttempts} attempts`);
+                window.students.push(student);
+             // ← closing ng rawStudent loop
+        } // ← closing ng section loop
+    } // ← closing ng for (window.sections) loop AT ng try block
+
+    console.log(`Total students loaded: ${window.students.length}`);
+    window.filteredStudents = [...window.students];
+    window.currentPage = 1;
+    updateStudentsTable(window.filteredStudents);
+
+    } catch (error) {
+        console.error('Error loading students:', error);
+        alert('Error loading students: ' + error.message);
+        updateStudentsTable([]);
+    }
+}
+
+        function populateSectionsTable() {
+            const tableBody = document.getElementById('sectionsTableBody');
+            
+            if (window.sections.length === 0) {
+                tableBody.innerHTML = `
+                    <tr>
+                        <td colspan="7">
+                            <div class="empty-state">
+                                <div class="empty-icon">🏫</div>
+                                <div class="empty-title">No Sections Found</div>
+                                <div class="empty-text">
+                                    No sections found for your profile.
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                `;
+                return;
+            }
+            
+            let html = '';
+            window.sections.forEach(section => {
+                const statusClass = section.status === 'active' ? 'status-active' : 'status-inactive';
+                const statusText = section.status === 'active' ? 'Active' : 'Inactive';
+                
+                html += `
+                    <tr>
+                        <td>
+                            <strong>${section.name}</strong>
+                            ${section.description ? `<br><small style="color: #64748b;">${section.description}</small>` : ''}
+                        </td>
+                        <td>${section.yearLevel || 'N/A'}</td>
+                        <td>${section.studentCount || 0}</td>
+                        <td>${section.semester || 'N/A'}</td>
+                        <td>${section.academicYear || 'N/A'}</td>
+                        <td><span class="status-badge ${statusClass}">${statusText}</span></td>
+                        <td>
+                            <div class="action-buttons">
+                                <button class="btn-action btn-view" onclick="viewSectionDetails('${section.id}')">
+                                    <i class="fas fa-eye"></i> View
+                                </button>
+                            </div>
+                        </td>
+                    </tr>
+                `;
+            });
+            
+            tableBody.innerHTML = html;
+        }
+
+        // Update students table with pagination
+  function updateStudentsTable(students) {
+            const tableBody = document.getElementById('studentsTableBody');
+            const studentCount = document.getElementById('studentCount');
+            const currentPageElement = document.getElementById('currentPage');
+            const totalPagesElement = document.getElementById('totalPages');
+
+            const totalPages = Math.ceil(students.length / window.itemsPerPage);
+            totalPagesElement.textContent = totalPages || 1;
+            currentPageElement.textContent = window.currentPage;
+
+            const startIndex = (window.currentPage - 1) * window.itemsPerPage;
+            const endIndex = startIndex + window.itemsPerPage;
+            const pageStudents = students.slice(startIndex, endIndex);
+
+            studentCount.textContent = students.length;
+
+            if (pageStudents.length === 0) {
+                tableBody.innerHTML = `<tr><td colspan="8"><div class="empty-state"><div class="empty-icon">👥</div><div class="empty-title">No Students Found</div><div class="empty-text">Try adjusting your search or filters.</div></div></td></tr>`;
+                return;
+            }
+
+            let rowsHTML = '';
+            pageStudents.forEach(student => {
+                let scoreClass = '', scoreText = 'No attempts';
+                if (student.totalAttempts > 0) {
+                    if (student.bestScore >= 90) { scoreClass = 'score-excellent'; scoreText = 'Excellent'; }
+                    else if (student.bestScore >= 70) { scoreClass = 'score-good'; scoreText = 'Good'; }
+                    else { scoreClass = 'score-poor'; scoreText = 'Needs Improvement'; }
+                }
+
+                let lastAttemptFormatted = 'No attempts';
+                if (student.lastAttempt instanceof Date && !isNaN(student.lastAttempt)) {
+                    lastAttemptFormatted = student.lastAttempt.toLocaleDateString('en-US', {
+                        year: 'numeric', month: 'long', day: 'numeric'
+                    });
+                }
+
+                rowsHTML += `
+                    <tr>
+                        <td><strong>${student.umakId || 'N/A'}</strong></td>
+                        <td>${student.firstName} ${student.lastName}</td>
+                        <td>${student.section || 'N/A'}</td>
+                        <td><strong>${student.totalAttempts}</strong>${student.totalAttempts === 0 ? '<br><small style="color: #64748b;">No attempts yet</small>' : ''}</td>
+                        <td>${student.totalAttempts > 0 ? `<span class="score-badge ${scoreClass}">${student.bestScore}%</span><br><small style="color: #64748b;">${scoreText}</small>` : '—'}</td>
+                        <td>${student.totalAttempts > 0 ? `<strong>${student.averageScore}%</strong>` : '—'}</td>
+                        <td>${lastAttemptFormatted}</td>
+                        <td>
+                            <div class="action-buttons">
+                                <button class="btn-action btn-view" onclick="viewStudentDetails('${student.id}')"><i class="fas fa-eye"></i> View</button>
+                            </div>
+                        </td>
+                    </tr>`;
+            });
+
+            tableBody.innerHTML = rowsHTML;
+        }
+        // Populate section filters
+        function populateSectionFilters() {
+            const sectionFilter = document.getElementById('filterSection');
+            
+            // Clear existing options except the first one
+            sectionFilter.innerHTML = '<option value="">All Sections</option>';
+            
+            // Add only professor's sections
+            window.sections.forEach(section => {
+                const option = document.createElement('option');
+                option.value = section.name;
+                option.textContent = `${section.name} (${section.studentCount} students)`;
+                sectionFilter.appendChild(option);
+            });
+            
+            console.log(`✓ Populated ${sectionFilter.options.length - 1} professor sections`);
+        }
+
+        // View section details (READ ONLY)
+        async function viewSectionDetails(sectionId) {
+            try {
+                const sectionRef = doc(db, 'sections', sectionId);
+                const sectionDoc = await getDoc(sectionRef);
+                
+                if (!sectionDoc.exists()) {
+                    alert('Section not found!');
+                    return;
+                }
+                
+                const sectionData = { id: sectionDoc.id, ...sectionDoc.data() };
+                
+                // Get students in this section
+                const studentsQuery = query(
+                    collection(db, 'students'),
+                    where('section', '==', sectionData.name)
+                );
+                const studentsSnapshot = await getDocs(studentsQuery);
+                const studentCount = studentsSnapshot.size;
+                
+                // Get performance statistics
+                let totalAttempts = 0;
+                let totalScore = 0;
+                let studentsWithAttempts = 0;
+                
+                for (const studentDoc of studentsSnapshot.docs) {
+                    const attemptsQuery = query(
+                        collection(db, 'testResults'),
+                        where('studentId', '==', studentDoc.id)
+                    );
+                    const attemptsSnapshot = await getDocs(attemptsQuery);
+                    
+                    if (!attemptsSnapshot.empty) {
+                        studentsWithAttempts++;
+                        attemptsSnapshot.forEach(attempt => {
+                            totalAttempts++;
+                            totalScore += attempt.data().score || 0;
+                        });
+                    }
+                }
+                
+                const averageScore = totalAttempts > 0 ? Math.round(totalScore / totalAttempts) : 0;
+                const completionRate = studentCount > 0 ? Math.round((studentsWithAttempts / studentCount) * 100) : 0;
+                
+                // Prepare HTML
+                let html = `
+                    <div class="section-info-header">
+                        <div class="section-basic-info">
+                            <div class="section-name">${sectionData.name}</div>
+                            <div class="section-details">
+                                <span><i class="fas fa-user-graduate"></i> ${studentCount} Students</span>
+                                <span><i class="fas fa-calendar"></i> ${sectionData.academicYear || 'N/A'}</span>
+                                <span><i class="fas fa-clock"></i> ${sectionData.semester || 'N/A'}</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="section-info-grid">
+                        <div class="info-item">
+                            <div class="info-label">Year Level</div>
+                            <div class="info-value">${sectionData.yearLevel || 'N/A'}</div>
+                        </div>
+                        <div class="info-item">
+                            <div class="info-label">Status</div>
+                            <div class="info-value">
+                                <span class="status-badge ${sectionData.status === 'active' ? 'status-active' : 'status-inactive'}">
+                                    ${sectionData.status === 'active' ? 'Active' : 'Inactive'}
+                                </span>
+                            </div>
+                        </div>
+                        <div class="info-item">
+                            <div class="info-label">Total Attempts</div>
+                            <div class="info-value">${totalAttempts}</div>
+                        </div>
+                        <div class="info-item">
+                            <div class="info-label">Average Score</div>
+                            <div class="info-value">
+                                ${totalAttempts > 0 ? `
+                                    <span class="score-badge ${averageScore >= 70 ? 'score-excellent' : 'score-poor'}">
+                                        ${averageScore}%
+                                    </span>
+                                ` : 'No data'}
+                            </div>
+                        </div>
+                        <div class="info-item">
+                            <div class="info-label">Completion Rate</div>
+                            <div class="info-value">${completionRate}%</div>
+                        </div>
+                        <div class="info-item">
+                            <div class="info-label">Professor</div>
+                            <div class="info-value">${sectionData.professor || window.currentUser.displayName || window.currentUser.email}</div>
+                        </div>
+                `;
+                
+                if (sectionData.description) {
+                    html += `
+                        <div class="info-item full-width">
+                            <div class="info-label">Description</div>
+                            <div class="info-value">${sectionData.description}</div>
+                        </div>
+                    `;
+                }
+                
+                html += `</div>`;
+                
+                document.getElementById('sectionDetailsContent').innerHTML = html;
+                document.getElementById('viewSectionModal').style.display = 'flex';
+                
+            } catch (error) {
+                console.error('Error viewing section details:', error);
+                alert('Error: ' + error.message);
+            }
+        }
+
+        // Close view section modal
+        function closeViewSectionModal() {
+            document.getElementById('viewSectionModal').style.display = 'none';
+        }
+
+        // View student details and attempts
+ async function viewStudentDetails(studentId) {
+            try {
+                window.currentStudentId = studentId;
+                const student = window.students.find(s => s.id === studentId);
+                if (!student) {
+                    alert('Student not found!');
+                    return;
+                }
+
+                const attemptsQuery = query(collection(db, 'testResults'), where('studentId', '==', studentId));
+                const attemptsSnapshot = await getDocs(attemptsQuery);
+
+                const attempts = [];
+                let totalScore = 0, bestScore = 0;
+
+                attemptsSnapshot.forEach(docSnap => {
+                    const attempt = { id: docSnap.id, ...docSnap.data() };
+                    attempts.push(attempt);
+                    const score = attempt.score || 0;
+                    totalScore += score;
+                    if (score > bestScore) bestScore = score;
+                });
+
+                // Manual sort: newest first
+                attempts.sort((a, b) => {
+                    const timeA = a.submittedAt?.toMillis() || 0;
+                    const timeB = b.submittedAt?.toMillis() || 0;
+                    return timeB - timeA;
+                });
+
+                const totalAttempts = attempts.length;
+                const averageScore = totalAttempts > 0 ? Math.round(totalScore / totalAttempts) : 0;
+                const initials = (student.firstName.charAt(0) + student.lastName.charAt(0)).toUpperCase() || '??';
+
+                // Student info card
+                let html = `
+                    <div class="student-info-header">
+                        <div class="student-avatar">${initials}</div>
+                        <div class="student-basic-info">
+                            <div class="student-name">${student.firstName} ${student.lastName}</div>
+                            <div class="student-id">${student.umakId} • ${student.section}</div>
+                        </div>
+                    </div>
+                    <div class="student-info-grid">
+<div class="info-item">
+    <div class="info-label">Email</div>
+    <div class="info-value info-value-email">${student.email || 'N/A'}</div>
+</div>                        <div class="info-item"><div class="info-label">Year Level</div><div class="info-value">${student.yearLevel || 'N/A'}</div></div>
+                        <div class="info-item"><div class="info-label">Total Attempts</div><div class="info-value"><strong>${totalAttempts}</strong></div></div>
+                        <div class="info-item"><div class="info-label">Best Score</div><div class="info-value">${totalAttempts > 0 ? `<span class="score-badge ${bestScore >= 90 ? 'score-excellent' : bestScore >= 70 ? 'score-good' : 'score-poor'}">${bestScore}%</span>` : 'No attempts'}</div></div>
+                        <div class="info-item"><div class="info-label">Average Score</div><div class="info-value">${totalAttempts > 0 ? `<strong>${averageScore}%</strong>` : 'No attempts'}</div></div>
+                        <div class="info-item"><div class="info-label">Status</div><div class="info-value"><span class="status-badge status-active">Active</span></div></div>
+                    </div>`;
+
+                document.getElementById('studentDetailsContent').innerHTML = html;
+
+                // Attempts table
+                let attemptsHTML = '';
+                if (attempts.length > 0) {
+                    attempts.forEach(attempt => {
+                        const date = attempt.submittedAt?.toDate() || new Date();
+                        const formattedDate = date.toLocaleDateString() + ' ' + date.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+                        const score = attempt.score || 0;
+                        let statusClass = score >= 90 ? 'score-excellent' : score >= 70 ? 'score-good' : 'score-poor';
+                        let statusText = score >= 90 ? 'Excellent' : score >= 70 ? 'Good' : 'Needs Improvement';
+
+                        attemptsHTML += `
+                            <tr>
+                                <td>${formattedDate}</td>
+                                <td>${formatActivityType(attempt.activityType || 'unknown')}</td>
+                                <td><span class="score-badge ${statusClass}">${score}%</span></td>
+                                <td>${statusText}</td>
+                                <td>${attempt.duration ? attempt.duration + ' mins' : 'N/A'}</td>
+                                <td><button class="btn-action btn-view" style="padding: 4px 8px; font-size: 11px;" onclick="viewAttemptDetails('${attempt.id}')"><i class="fas fa-info-circle"></i> Details</button></td>
+                            </tr>`;
+                    });
+                } else {
+                    attemptsHTML = `<tr><td colspan="6" style="text-align: center; padding: 40px; color: #64748b;"><i class="fas fa-history" style="font-size: 24px; opacity: 0.5;"></i><br>No attempts recorded yet</td></tr>`;
+                }
+
+                document.getElementById('attemptsTableBody').innerHTML = attemptsHTML;
+                document.getElementById('viewStudentModal').style.display = 'flex';
+            } catch (error) {
+                console.error('Error viewing student details:', error);
+                alert('Error: ' + error.message);
+            }
+        }
+
+        // Helper function to format activity type
+        function formatActivityType(type) {
+            const types = {
+                'push-up': 'Push-up Test',
+                'sit-up': 'Sit-up Test',
+                'running': 'Running Test',
+                'flexibility': 'Flexibility Test',
+                'endurance': 'Endurance Test',
+                'other': 'Other Activity'
+            };
+            return types[type] || type;
+        }
+
+        // View attempt details
+        async function viewAttemptDetails(attemptId) {
+            try {
+                const attemptRef = doc(db, 'testResults', attemptId);
+                const attemptDoc = await getDoc(attemptRef);
+                
+                if (!attemptDoc.exists()) {
+                    alert('Attempt not found!');
+                    return;
+                }
+                
+                const attempt = attemptDoc.data();
+                const date = attempt.submittedAt?.toDate ? attempt.submittedAt.toDate() : new Date(attempt.createdAt || Date.now());
+                
+                alert(
+                    `Attempt Details:\n\n` +
+                    `Activity: ${formatActivityType(attempt.activityType || 'unknown')}\n` +
+                    `Score: ${attempt.score || 0}%\n` +
+                    `Date: ${date.toLocaleDateString()}\n` +
+                    `Time: ${date.toLocaleTimeString()}\n` +
+                    `Duration: ${attempt.duration || 'N/A'} minutes\n` +
+                    `Notes: ${attempt.notes || 'No notes provided'}`
+                );
+                
+            } catch (error) {
+                console.error('Error viewing attempt details:', error);
+                alert('Error: ' + error.message);
+            }
+        }
+
+        // Add new attempt for student
+    async function addNewAttempt() {
+    const attemptType = document.getElementById('attemptType').value;
+    const attemptScore = document.getElementById('attemptScore').value;
+    const attemptNotes = document.getElementById('attemptNotes').value.trim();
+    
+    // Validation
+    if (!attemptType || !attemptScore) {
+        alert('Please fill in all required fields.');
+        return;
+    }
+    
+    const score = parseInt(attemptScore);
+    if (isNaN(score) || score < 0 || score > 100) {
+        alert('Please enter a valid score between 0 and 100.');
+        return;
+    }
+    
+    try {
+        const submitBtn = document.querySelector('#viewStudentModal .btn-submit');
+        submitBtn.disabled = true;
+        submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Saving...';
+        
+        // Find student in our loaded data
+        const student = window.students.find(s => s.id === window.currentStudentId);
+        
+        if (!student) {
+            throw new Error('Student not found!');
+        }
+        
+        // Create new attempt
+        const attemptData = {
+            studentId: window.currentStudentId,
+            studentName: student.fullName,
+            studentEmail: student.email,
+            studentSection: student.section,
+            activityType: attemptType,
+            score: score,
+            notes: attemptNotes || null,
+            submittedAt: serverTimestamp(),
+            createdAt: serverTimestamp(),
+            professorId: window.currentUser.uid,
+            professorEmail: window.currentUser.email,
+            professorName: window.currentUser.displayName || 'Professor'
+        };
+        
+        // Save to testResults collection
+        await addDoc(collection(db, 'testResults'), attemptData);
+        
+        console.log('✓ New attempt added for student:', student.fullName);
+        
+        // Clear form
+        document.getElementById('attemptType').value = '';
+        document.getElementById('attemptScore').value = '';
+        document.getElementById('attemptNotes').value = '';
+        
+        // Refresh student details
+        await viewStudentDetails(window.currentStudentId);
+        
+        // Refresh main student list
+        await loadStudents();
+        
+        alert('Attempt added successfully!');
+        
+    } catch (error) {
+        console.error('Error adding attempt:', error);
+        alert('Error: ' + error.message);
+        
+        const submitBtn = document.querySelector('#viewStudentModal .btn-submit');
+        submitBtn.disabled = false;
+        submitBtn.innerHTML = '<i class="fas fa-save"></i> Save Attempt';
+    }
+}
+
+        // Close view student modal
+        function closeViewStudentModal() {
+            document.getElementById('viewStudentModal').style.display = 'none';
+            window.currentStudentId = null;
+        }
+
+        // Filter sections
+        function filterSections() {
+            const searchTerm = document.getElementById('searchSections').value.toLowerCase();
+            const rows = document.querySelectorAll('#sectionsTableBody tr');
+            
+            rows.forEach(row => {
+                const text = row.textContent.toLowerCase();
+                row.style.display = text.includes(searchTerm) ? '' : 'none';
+            });
+        }
+
+        // Filter students
+        function filterStudents() {
+            const searchTerm = document.getElementById('searchStudents').value.toLowerCase();
+            const sectionFilter = document.getElementById('filterSection').value;
+            const performanceFilter = document.getElementById('filterPerformance').value;
+            
+            window.filteredStudents = window.students.filter(student => {
+                // Search term filter
+                const matchesSearch = !searchTerm || 
+                    student.firstName.toLowerCase().includes(searchTerm) ||
+                    student.lastName.toLowerCase().includes(searchTerm) ||
+                    (student.umakId && student.umakId.toLowerCase().includes(searchTerm));
+                
+                // Section filter
+                const matchesSection = !sectionFilter || student.section === sectionFilter;
+                
+                // Performance filter
+                let matchesPerformance = true;
+                if (performanceFilter) {
+                    switch (performanceFilter) {
+                        case 'excellent':
+                            matchesPerformance = student.bestScore >= 90;
+                            break;
+                        case 'good':
+                            matchesPerformance = student.bestScore >= 70 && student.bestScore < 90;
+                            break;
+                        case 'needs-improvement':
+                            matchesPerformance = student.bestScore > 0 && student.bestScore < 70;
+                            break;
+                        case 'no-attempts':
+                            matchesPerformance = student.totalAttempts === 0;
+                            break;
+                    }
+                }
+                
+                return matchesSearch && matchesSection && matchesPerformance;
+            });
+            
+            window.currentPage = 1; // Reset to first page when filtering
+            updateStudentsTable(window.filteredStudents);
+        }
+
+        // Pagination functions
+        function previousPage() {
+            if (window.currentPage > 1) {
+                window.currentPage--;
+                updateStudentsTable(window.filteredStudents);
+            }
+        }
+
+        function nextPage() {
+            const totalPages = Math.ceil(window.filteredStudents.length / window.itemsPerPage);
+            if (window.currentPage < totalPages) {
+                window.currentPage++;
+                updateStudentsTable(window.filteredStudents);
+            }
+        }
+
+        // Export students data
+        function exportStudents() {
+            if (window.filteredStudents.length === 0) {
+                alert('No students to export.');
+                return;
+            }
+
+            // Create CSV content
+            let csvContent = "data:text/csv;charset=utf-8,";
+            csvContent += "UMaK ID,Student Name,Section,Total Attempts,Best Score,Average Score,Last Attempt\n";
+            
+            window.filteredStudents.forEach(student => {
+                const row = [
+                    student.umakId || '',
+                    `${student.firstName} ${student.lastName}`,
+                    student.section || '',
+                    student.totalAttempts || 0,
+                    student.bestScore || 0,
+                    student.averageScore || 0,
+                    student.lastAttempt ? 
+                        (student.lastAttempt.toDate ? student.lastAttempt.toDate().toLocaleDateString() : 
+                         new Date(student.lastAttempt).toLocaleDateString()) : 'No attempts'
+                ].map(field => `"${field}"`).join(',');
+                
+                csvContent += row + "\n";
+            });
+            
+            // Create download link
+            const encodedUri = encodeURI(csvContent);
+            const link = document.createElement("a");
+            link.setAttribute("href", encodedUri);
+            link.setAttribute("download", `student_scores_${new Date().toISOString().split('T')[0]}.csv`);
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+        }
+
+        // Refresh data
+        function refreshData() {
+            window.currentPage = 1;
+            loadSections();
+            loadStudents();
+        }
+
+        // Setup real-time updates
+     function setupRealtimeUpdates() {
+    // Listen for section changes where this professor is assigned
+    if (window.currentUser && window.currentUser.displayName) {
+        const sectionsQuery = query(
+            collection(db, 'sections'),
+            where('professor', '==', window.currentUser.displayName)
+        );
+        
+        onSnapshot(sectionsQuery, (snapshot) => {
+            console.log('🔄 Professor sections updated');
+            loadSections().then(() => {
+                loadStudents();
+            });
+        });
+    }
+}
+
+        // Authentication state change handler
+        onAuthStateChanged(auth, async (user) => {
+            const loadingScreen = document.getElementById('loadingScreen');
+            const mainContent = document.getElementById('mainContent');
+
+            if (user) {
+                try {
+                    console.log('=== STUDENT MANAGEMENT LOADING ===');
+                    console.log('Professor authenticated:', user.email);
+                    
+                    window.currentUser = user;
+                    
+                    // Load sections and students
+                    await loadSections();
+                    await loadStudents();
+                    
+                    // Setup real-time updates
+                    setupRealtimeUpdates();
+
+                    loadingScreen.style.display = 'none';
+                    mainContent.style.display = 'block';
+                    
+                    console.log('✓ Student management loaded');
+                    
+                } catch (error) {
+                    console.error('Error loading student management:', error);
+                    
+                    loadingScreen.style.display = 'none';
+                    mainContent.style.display = 'block';
+                    
+                    alert('Error loading data from database. Please check console for details.');
+                }
+            } else {
+                console.log('No user, redirecting to login...');
+                window.location.href = '/login/index.html';
+            }
+        });
+
+        // Make functions globally available
+        window.viewSectionDetails = viewSectionDetails;
+        window.closeViewSectionModal = closeViewSectionModal;
+        window.viewStudentDetails = viewStudentDetails;
+        window.closeViewStudentModal = closeViewStudentModal;
+        window.viewAttemptDetails = viewAttemptDetails;
+        window.addNewAttempt = addNewAttempt;
+        window.exportStudents = exportStudents;
+        window.refreshData = refreshData;
+        window.filterSections = filterSections;
+        window.filterStudents = filterStudents;
+        window.previousPage = previousPage;
+        window.nextPage = nextPage;
+        window.signOut = signOut;
+    </script>
+
+    <script>
+        async function handleLogout() {
+            if (confirm('Are you sure you want to logout?')) {
+                try {
+                    await window.signOut(window.auth);
+                    const baseUrl = window.location.origin;
+                    window.location.href = baseUrl + '/login/index.html';
+                } catch (error) {
+                    console.error('Error logging out:', error);
+                    alert('Error logging out. Please try again.');
+                }
+            }
+        }
+    </script>
+</body>
+</html>

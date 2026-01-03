@@ -1,0 +1,1593 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>UmakFit - Student Grades</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Manrope:600,800|Inter:300,500,400,700" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * { -webkit-font-smoothing: antialiased; box-sizing: border-box; }
+        body { font-family: 'Inter', Helvetica, sans-serif; margin: 0; padding: 0; background-color: #f8fafc; }
+        
+        .header-top { 
+            background-color: #ffffff; 
+            padding: 15px 0; 
+            box-shadow: 0 2px 10px rgba(0,0,0,0.08); 
+            position: fixed; 
+            top: 0; 
+            width: 100%; 
+            z-index: 1000; 
+            border-bottom: 1px solid #e2e8f0;
+        }
+        .header-top .container { 
+            display: flex; 
+            justify-content: space-between; 
+            align-items: center; 
+        }
+        .logo-text { 
+            font-family: "Inter", Helvetica; 
+            font-weight: 700; 
+            color: #1e3a8a; 
+            font-size: 24px; 
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .logo-text i {
+            color: #f59e0b;
+            font-size: 26px;
+        }
+        .header-actions { 
+            display: flex; 
+            align-items: center; 
+            gap: 15px; 
+        }
+        .logout-btn { 
+            padding: 8px 20px; 
+            background: linear-gradient(90deg, rgba(251, 191, 36, 1) 0%, rgba(245, 158, 11, 1) 100%); 
+            border: none; 
+            border-radius: 8px; 
+            color: #000; 
+            font-weight: 600; 
+            font-size: 14px; 
+            cursor: pointer; 
+            transition: all 0.3s; 
+            box-shadow: 0 2px 4px rgba(245, 158, 11, 0.3);
+        }
+        .logout-btn:hover { 
+            transform: translateY(-2px); 
+            box-shadow: 0 4px 8px rgba(245, 158, 11, 0.4); 
+        }
+        .account-circle { 
+            width: 44px; 
+            height: 44px; 
+            cursor: pointer; 
+            border-radius: 50%;
+            border: 2px solid #e2e8f0;
+            transition: all 0.3s;
+        }
+        .account-circle:hover {
+            border-color: #f59e0b;
+        }
+        
+        .nav-section { 
+            background: linear-gradient(180deg, rgba(30, 58, 138, 1) 0%, rgba(59, 130, 246, 1) 100%); 
+            padding: 20px 0; 
+            margin-top: 74px; 
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+        .nav-container {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+        .nav-brand { 
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            font-family: "Manrope", Helvetica; 
+            font-weight: 800; 
+            font-size: 28px; 
+            background: linear-gradient(90deg, rgba(245, 158, 11, 1) 0%, rgba(255, 229, 0, 1) 100%); 
+            -webkit-background-clip: text; 
+            background-clip: text; 
+            -webkit-text-fill-color: transparent;
+            margin: 0;
+        }
+        .nav-brand-logo {
+            height: 60px;
+            width: auto;
+        }
+        .nav-pills-custom { 
+            display: flex; 
+            flex-wrap: wrap; 
+            gap: 8px; 
+            padding: 0; 
+            margin: 0;
+        }
+        .nav-pills-custom .nav-link { 
+            font-family: "Manrope", Helvetica; 
+            font-weight: 600; 
+            color: #000000; 
+            font-size: 14px; 
+            padding: 12px 18px;
+            border-radius: 8px; 
+            background-color: #ffffff; 
+            transition: all 0.3s; 
+            border: none; 
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+        }
+        .nav-pills-custom .nav-link.active { 
+            background: linear-gradient(90deg, rgba(251, 191, 36, 1) 0%, rgba(245, 158, 11, 1) 100%); 
+            box-shadow: 0 4px 8px rgba(245, 158, 11, 0.3);
+        }
+        .nav-pills-custom .nav-link:hover { 
+            transform: translateY(-2px); 
+            box-shadow: 0 4px 8px rgba(0,0,0,0.15); 
+        }
+        
+        .main-content { 
+            padding: 40px 0 80px 0; 
+            min-height: calc(100vh - 200px); 
+        }
+
+        .page-header {
+            background: white;
+            border-radius: 16px;
+            padding: 30px;
+            margin-bottom: 30px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+            border: 1px solid #e2e8f0;
+        }
+
+        .page-title {
+            font-family: "Inter", Helvetica;
+            font-weight: 700;
+            color: #1e3a8a;
+            font-size: 32px;
+            margin-bottom: 10px;
+        }
+
+        .page-subtitle {
+            font-family: "Inter", Helvetica;
+            font-weight: 500;
+            color: #64748b;
+            font-size: 16px;
+        }
+
+        .filter-section {
+            background: white;
+            border-radius: 16px;
+            padding: 25px;
+            margin-bottom: 30px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+            border: 1px solid #e2e8f0;
+        }
+
+        .filter-row {
+            display: flex;
+            gap: 15px;
+            align-items: end;
+            flex-wrap: wrap;
+        }
+
+        .filter-group {
+            flex: 1;
+            min-width: 200px;
+        }
+
+        .filter-label {
+            font-family: "Inter", Helvetica;
+            font-weight: 600;
+            color: #475569;
+            font-size: 14px;
+            margin-bottom: 8px;
+            display: block;
+        }
+
+        .filter-select, .filter-input {
+            width: 100%;
+            padding: 10px 14px;
+            border: 2px solid #e2e8f0;
+            border-radius: 8px;
+            font-family: "Inter", Helvetica;
+            font-size: 14px;
+            transition: all 0.3s;
+        }
+
+        .filter-select:focus, .filter-input:focus {
+            outline: none;
+            border-color: #3b82f6;
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+        }
+
+        .btn-primary {
+            padding: 10px 24px;
+            background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
+            border: none;
+            border-radius: 8px;
+            color: white;
+            font-family: "Inter", Helvetica;
+            font-weight: 600;
+            font-size: 14px;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(59, 130, 246, 0.4);
+        }
+
+        .btn-success {
+            padding: 10px 24px;
+            background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+            border: none;
+            border-radius: 8px;
+            color: white;
+            font-family: "Inter", Helvetica;
+            font-weight: 600;
+            font-size: 14px;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .btn-success:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(16, 185, 129, 0.4);
+        }
+
+        .btn-warning {
+            padding: 10px 24px;
+            background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
+            border: none;
+            border-radius: 8px;
+            color: white;
+            font-family: "Inter", Helvetica;
+            font-weight: 600;
+            font-size: 14px;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .btn-warning:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(245, 158, 11, 0.4);
+        }
+
+        .grades-container {
+            background: white;
+            border-radius: 16px;
+            padding: 25px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+            border: 1px solid #e2e8f0;
+        }
+
+        .grades-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .grades-title {
+            font-family: "Inter", Helvetica;
+            font-weight: 700;
+            color: #1f2937;
+            font-size: 22px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .table-responsive {
+            overflow-x: auto;
+        }
+
+        .grades-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .grades-table thead {
+            background: #f8fafc;
+        }
+
+        .grades-table th {
+            font-family: "Inter", Helvetica;
+            font-weight: 600;
+            color: #64748b;
+            font-size: 12px;
+            text-transform: uppercase;
+            padding: 14px 12px;
+            text-align: left;
+            border-bottom: 2px solid #e2e8f0;
+            letter-spacing: 0.5px;
+        }
+
+        .grades-table td {
+            font-family: "Inter", Helvetica;
+            font-weight: 500;
+            color: #475569;
+            font-size: 14px;
+            padding: 16px 12px;
+            border-bottom: 1px solid #f1f5f9;
+        }
+
+        .grades-table tr:hover {
+            background-color: #f8fafc;
+        }
+
+        .grade-input {
+            width: 70px;
+            padding: 6px 10px;
+            border: 1px solid #e2e8f0;
+            border-radius: 4px;
+            font-family: "Inter", Helvetica;
+            font-size: 14px;
+            text-align: center;
+        }
+
+        .grade-input:focus {
+            outline: none;
+            border-color: #3b82f6;
+            box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.1);
+        }
+
+        .grade-value {
+            font-weight: 600;
+        }
+
+        .grade-excellent { color: #10b981; }
+        .grade-good { color: #3b82f6; }
+        .grade-fair { color: #f59e0b; }
+        .grade-poor { color: #ef4444; }
+
+        .action-buttons {
+            display: flex;
+            gap: 5px;
+        }
+
+        .btn-small {
+            padding: 4px 8px;
+            border: none;
+            border-radius: 4px;
+            font-family: "Inter", Helvetica;
+            font-weight: 500;
+            font-size: 12px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .btn-edit {
+            background-color: #3b82f6;
+            color: white;
+        }
+
+        .btn-edit:hover {
+            background-color: #2563eb;
+        }
+
+        .btn-save {
+            background-color: #10b981;
+            color: white;
+        }
+
+        .btn-save:hover {
+            background-color: #059669;
+        }
+
+        .btn-cancel {
+            background-color: #6b7280;
+            color: white;
+        }
+
+        .btn-cancel:hover {
+            background-color: #4b5563;
+        }
+
+        .loading {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(255,255,255,0.95);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .spinner {
+            border: 4px solid #f1f5f9;
+            border-top: 4px solid #3b82f6;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .loading-text {
+            font-family: "Inter", Helvetica;
+            font-weight: 500;
+            color: #475569;
+            font-size: 16px;
+        }
+
+        .empty-state {
+            text-align: center;
+            padding: 60px 40px;
+        }
+
+        .empty-icon {
+            font-size: 64px;
+            margin-bottom: 20px;
+            opacity: 0.4;
+        }
+
+        .empty-title {
+            font-family: "Inter", Helvetica;
+            font-weight: 700;
+            color: #1f2937;
+            font-size: 20px;
+            margin-bottom: 12px;
+        }
+
+        .empty-text {
+            font-family: "Inter", Helvetica;
+            font-weight: 400;
+            color: #64748b;
+            font-size: 14px;
+            line-height: 1.6;
+        }
+
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.5);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 2000;
+            padding: 20px;
+        }
+
+        .modal-content {
+            background: white;
+            border-radius: 12px;
+            width: 100%;
+            max-width: 500px;
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+
+        .modal-header {
+            padding: 20px 25px;
+            border-bottom: 1px solid #e2e8f0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .modal-title {
+            font-family: "Inter", Helvetica;
+            font-weight: 600;
+            color: #1e3a8a;
+            font-size: 20px;
+            margin: 0;
+        }
+
+        .close-modal {
+            background: none;
+            border: none;
+            font-size: 24px;
+            cursor: pointer;
+            color: #64748b;
+        }
+
+        .modal-body {
+            padding: 25px;
+        }
+
+        .modal-footer {
+            padding: 20px 25px;
+            border-top: 1px solid #e2e8f0;
+            display: flex;
+            justify-content: flex-end;
+            gap: 10px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+            color: #374151;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 10px 12px;
+            border: 1px solid #d1d5db;
+            border-radius: 6px;
+            font-size: 14px;
+        }
+
+        .umak-logo {
+            height: 40px;
+            width: auto;
+        }
+
+        @media (max-width: 768px) {
+            .filter-row {
+                flex-direction: column;
+            }
+            .grades-header {
+                flex-direction: column;
+                gap: 15px;
+                align-items: flex-start;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div id="loadingScreen" class="loading">
+        <div class="spinner"></div>
+        <div class="loading-text">Loading Grades Management...</div>
+    </div>
+
+    <div id="mainContent" style="display: none;">
+        <div class="header-top">
+            <div class="container">
+                <div class="logo-text">
+                    <img class="umak-logo" src="umaklogo.png" alt="University of Makati">
+                    University of Makati
+                </div>
+                <div class="header-actions">
+                    <button class="logout-btn" onclick="handleLogout()">
+                        <i class="fas fa-sign-out-alt"></i> Logout
+                    </button>
+                    <img class="account-circle" src="https://c.animaapp.com/tzMzyNnw/img/icon.svg" alt="Account">
+                </div>
+            </div>
+        </div>
+
+        <div class="nav-section">
+            <div class="container">
+                <div class="nav-container">
+                    <div class="nav-brand">
+                        <img class="nav-brand-logo" src="logo.png" alt="UMakFit">
+                        UMakFit
+                    </div>
+                    <ul class="nav nav-pills-custom">
+                        <li class="nav-item">
+                            <a class="nav-link" href="professor.html">
+                                <i class="fas fa-tachometer-alt"></i> Dashboard
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="studentmanagement.html">
+                                <i class="fas fa-users"></i> Student Management
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="addactivities.html">
+                                <i class="fas fa-dumbbell"></i> Add Activities
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="addlesson.html">
+                                <i class="fas fa-book-open"></i> Add Lesson
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="monitoringactivities.html">
+                                <i class="fas fa-chart-bar"></i> Monitoring Activities
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link active" href="#">
+                                <i class="fas fa-graduation-cap"></i> Grades
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="main-content">
+            <div class="container">
+                <div class="page-header">
+                    <h1 class="page-title">
+                        <i class="fas fa-graduation-cap" style="color: #3b82f6;"></i>
+                        Student Grades Management
+                    </h1>
+                    <p class="page-subtitle">View, edit, and manage student grades and performance</p>
+                </div>
+
+                <div class="filter-section">
+                    <div class="filter-row">
+                        <div class="filter-group">
+                            <label class="filter-label">Section</label>
+                            <select class="filter-select" id="filterSection">
+                                <option value="">All Sections</option>
+                            </select>
+                        </div>
+                        <div class="filter-group">
+                            <label class="filter-label">Activity Type</label>
+                            <select class="filter-select" id="filterActivity">
+                                <option value="">All Activities</option>
+                            </select>
+                        </div>
+                        <div class="filter-group">
+                            <label class="filter-label">Student Name</label>
+                            <input type="text" class="filter-input" id="filterStudent" placeholder="Search student...">
+                        </div>
+                        <div style="display: flex; gap: 10px;">
+                            <button class="btn-primary" onclick="applyFilters()">
+                                <i class="fas fa-filter"></i> Apply Filters
+                            </button>
+                            <button class="btn-success" onclick="exportGrades()">
+                                <i class="fas fa-download"></i> Export Grades
+                            </button>
+                            <button class="btn-warning" onclick="calculateFinalGrades()">
+                                <i class="fas fa-calculator"></i> Calculate Final Grades
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="grades-container">
+                    <div class="grades-header">
+                        <h3 class="grades-title">
+                            <i class="fas fa-list-ol"></i>
+                            Student Grades
+                        </h3>
+                        <button class="btn-primary" onclick="showBulkEditModal()">
+                            <i class="fas fa-edit"></i> Bulk Edit Grades
+                        </button>
+                    </div>
+                    
+                    <div class="table-responsive">
+                        <table class="grades-table" id="gradesTable">
+                            <thead>
+                                <tr>
+                                    <th>Student Name</th>
+                                    <th>Section</th>
+                                    <th>Activity</th>
+                                    <th>Score</th>
+                                    <th>Grade</th>
+                                    <th>Date</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody id="gradesTableBody">
+                                <tr>
+                                    <td colspan="7">
+                                        <div class="empty-state">
+                                            <div class="empty-icon">📊</div>
+                                            <div class="empty-title">Loading Grades Data</div>
+                                            <div class="empty-text">Fetching student grades from the database...</div>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- Final Grades Summary -->
+                <div class="grades-container mt-4">
+                    <h3 class="grades-title">
+                        <i class="fas fa-chart-line"></i>
+                        Final Grades Summary
+                    </h3>
+                    <div class="table-responsive">
+                        <table class="grades-table">
+                            <thead>
+                                <tr>
+                                    <th>Student Name</th>
+                                    <th>Section</th>
+                                    <th>Total Activities</th>
+                                    <th>Average Score</th>
+                                    <th>Final Grade</th>
+                                    <th>Status</th>
+                                </tr>
+                            </thead>
+                            <tbody id="finalGradesBody">
+                                <tr>
+                                    <td colspan="6">
+                                        <div class="empty-state">
+                                            <div class="empty-icon">📈</div>
+                                            <div class="empty-title">No Final Grades Calculated</div>
+                                            <div class="empty-text">Click "Calculate Final Grades" to generate final grades</div>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Edit Grade Modal -->
+    <div class="modal-overlay" id="editGradeModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title">Edit Grade</h3>
+                <button class="close-modal" onclick="closeEditModal()">&times;</button>
+            </div>
+            <div class="modal-body">
+                <form id="editGradeForm">
+                    <div class="form-group">
+                        <label class="form-label">Student</label>
+                        <input type="text" class="form-control" id="editStudentName" readonly>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Activity</label>
+                        <input type="text" class="form-control" id="editActivityName" readonly>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Score (0-100)</label>
+                        <input type="number" class="form-control" id="editScore" min="0" max="100" step="0.1" required>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Remarks</label>
+                        <textarea class="form-control" id="editRemarks" rows="3" placeholder="Add remarks about this grade..."></textarea>
+                    </div>
+                    <input type="hidden" id="editGradeId">
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" onclick="closeEditModal()">Cancel</button>
+                <button class="btn btn-success" onclick="saveGrade()">Save Grade</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bulk Edit Modal -->
+    <div class="modal-overlay" id="bulkEditModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title">Bulk Edit Grades</h3>
+                <button class="close-modal" onclick="closeBulkEditModal()">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label class="form-label">Select Section</label>
+                    <select class="form-control" id="bulkSection">
+                        <option value="">Select Section</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Select Activity</label>
+                    <select class="form-control" id="bulkActivity">
+                        <option value="">Select Activity</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Grade Adjustment</label>
+                    <select class="form-control" id="bulkAdjustment">
+                        <option value="add">Add Points</option>
+                        <option value="subtract">Subtract Points</option>
+                        <option value="multiply">Multiply by Percentage</option>
+                        <option value="set">Set to Specific Value</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Value</label>
+                    <input type="number" class="form-control" id="bulkValue" min="0" step="0.1">
+                </div>
+                <div class="alert alert-info">
+                    <i class="fas fa-info-circle"></i> This will update grades for all students in the selected section and activity.
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" onclick="closeBulkEditModal()">Cancel</button>
+                <button class="btn btn-warning" onclick="applyBulkEdit()">Apply to All</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/js/bootstrap.bundle.min.js"></script>
+    <script type="module">
+        import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js';
+        import { getAuth, onAuthStateChanged, signOut } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js';
+        import { getFirestore, collection, getDocs, query, where, doc, getDoc, updateDoc, addDoc, orderBy, writeBatch } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js';
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyAgaLunqEf2gs6dSpF_sz1hV5XQ5Wm52jo",
+            authDomain: "umakfit-e3b1d.firebaseapp.com",
+            projectId: "umakfit-e3b1d",
+            storageBucket: "umakfit-e3b1d.appspot.com",
+            messagingSenderId: "276569891504",
+            appId: "1:276569891504:web:39b1732b519f4d8b785175"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+        const db = getFirestore(app);
+
+        let currentProfessor = null;
+        let assignedSections = [];
+        let allGrades = [];
+        let allActivities = [];
+        let allStudents = [];
+
+        onAuthStateChanged(auth, async (user) => {
+            const loadingScreen = document.getElementById('loadingScreen');
+            const mainContent = document.getElementById('mainContent');
+
+            if (user) {
+                try {
+                    console.log('User authenticated:', user.email);
+                    currentProfessor = { id: user.uid, email: user.email };
+                    
+                    await loadProfessorData();
+                    await loadAssignedSections();
+                    await loadAllData();
+                    
+                    loadingScreen.style.display = 'none';
+                    mainContent.style.display = 'block';
+                    
+                } catch (error) {
+                    console.error('Error loading grades:', error);
+                    loadingScreen.style.display = 'none';
+                    mainContent.style.display = 'block';
+                    alert('Error loading grades data: ' + error.message);
+                }
+            } else {
+                window.location.href = '/login/index.html';
+            }
+        });
+
+        async function loadProfessorData() {
+            try {
+                const userRef = doc(db, 'users', currentProfessor.id);
+                const userDoc = await getDoc(userRef);
+                
+                if (userDoc.exists()) {
+                    const userData = userDoc.data();
+                    if (userData.role !== 'professor') {
+                        await signOut(auth);
+                        window.location.href = '/login/index.html';
+                        return;
+                    }
+                }
+            } catch (error) {
+                console.error('Error loading professor data:', error);
+            }
+        }
+
+        async function loadAssignedSections() {
+            try {
+                assignedSections = [];
+                
+                // Load from professorProfiles
+                const profileRef = doc(db, 'professorProfiles', currentProfessor.email);
+                const profileDoc = await getDoc(profileRef);
+                
+                if (profileDoc.exists()) {
+                    const profileData = profileDoc.data();
+                    if (profileData.assignedClass) {
+                        const studentsQuery = query(
+                            collection(db, 'students'),
+                            where('section', '==', profileData.assignedClass)
+                        );
+                        const studentsSnapshot = await getDocs(studentsQuery);
+                        
+                        assignedSections.push({
+                            section: profileData.assignedClass,
+                            students: studentsSnapshot.size
+                        });
+                    }
+                }
+                
+                // Load from sections collection
+                const sectionsQuery = query(
+                    collection(db, 'sections'),
+                    where('professorEmail', '==', currentProfessor.email)
+                );
+                const sectionsSnapshot = await getDocs(sectionsQuery);
+                
+                for (const docSnap of sectionsSnapshot.docs) {
+                    const sectionData = docSnap.data();
+                    const exists = assignedSections.find(s => s.section === sectionData.name);
+                    
+                    if (!exists) {
+                        const studentsQuery = query(
+                            collection(db, 'students'),
+                            where('section', '==', sectionData.name)
+                        );
+                        const studentsSnapshot = await getDocs(studentsQuery);
+                        
+                        assignedSections.push({
+                            section: sectionData.name,
+                            students: studentsSnapshot.size
+                        });
+                    }
+                }
+                
+                // Populate section filter
+                const sectionSelect = document.getElementById('filterSection');
+                const bulkSectionSelect = document.getElementById('bulkSection');
+                
+                sectionSelect.innerHTML = '<option value="">All Sections</option>';
+                bulkSectionSelect.innerHTML = '<option value="">Select Section</option>';
+                
+                assignedSections.forEach(section => {
+                    const option = document.createElement('option');
+                    option.value = section.section;
+                    option.textContent = `${section.section} (${section.students} students)`;
+                    sectionSelect.appendChild(option);
+                    
+                    const bulkOption = option.cloneNode(true);
+                    bulkSectionSelect.appendChild(bulkOption);
+                });
+                
+                console.log('Assigned sections:', assignedSections);
+                
+            } catch (error) {
+                console.error('Error loading assigned sections:', error);
+            }
+        }
+
+        async function loadAllData() {
+            await loadActivities();
+            await loadStudents();
+            await loadGrades();
+            updateFilters();
+        }
+
+        async function loadActivities() {
+            try {
+                allActivities = [];
+                
+                // Load from scheduledTests (activities)
+                const activitiesQuery = query(
+                    collection(db, 'scheduledTests'),
+                    where('professorEmail', '==', currentProfessor.email)
+                );
+                const activitiesSnapshot = await getDocs(activitiesQuery);
+                
+                activitiesSnapshot.forEach(docSnap => {
+                    const activity = docSnap.data();
+                    if (!allActivities.find(a => a.testName === activity.testName)) {
+                        allActivities.push({
+                            id: docSnap.id,
+                            name: activity.testName,
+                            section: activity.section
+                        });
+                    }
+                });
+                
+                console.log('Loaded activities:', allActivities);
+                
+            } catch (error) {
+                console.error('Error loading activities:', error);
+            }
+        }
+
+        async function loadStudents() {
+            try {
+                allStudents = [];
+                const studentIds = new Set();
+                
+                for (const section of assignedSections) {
+                    const studentsQuery = query(
+                        collection(db, 'students'),
+                        where('section', '==', section.section)
+                    );
+                    const studentsSnapshot = await getDocs(studentsQuery);
+                    
+                    studentsSnapshot.forEach(docSnap => {
+                        const student = docSnap.data();
+                        const uniqueId = student.email || student.umakId || docSnap.id;
+                        
+                        if (!studentIds.has(uniqueId)) {
+                            studentIds.add(uniqueId);
+                            allStudents.push({
+                                id: docSnap.id,
+                                ...student,
+                                section: section.section
+                            });
+                        }
+                    });
+                }
+                
+                console.log('Loaded students:', allStudents.length);
+                
+            } catch (error) {
+                console.error('Error loading students:', error);
+            }
+        }
+
+        async function loadGrades() {
+            try {
+                allGrades = [];
+                
+                // Load from testResults (activity results)
+                const gradesQuery = query(
+                    collection(db, 'testResults'),
+                    where('professorEmail', '==', currentProfessor.email),
+                    orderBy('submittedAt', 'desc')
+                );
+                
+                const gradesSnapshot = await getDocs(gradesQuery);
+                
+                gradesSnapshot.forEach(docSnap => {
+                    const gradeData = docSnap.data();
+                    
+                    // Calculate score if not present
+                    let score = gradeData.score;
+                    if (!score && gradeData.result) {
+                        score = calculateActivityScore(
+                            gradeData.testName, 
+                            gradeData.result, 
+                            gradeData.testTarget
+                        );
+                    }
+                    
+                    // Calculate grade letter
+                    const gradeLetter = calculateGradeLetter(score);
+                    const gradeStatus = getGradeStatus(score);
+                    
+                    allGrades.push({
+                        id: docSnap.id,
+                        ...gradeData,
+                        score: score || 0,
+                        grade: gradeLetter,
+                        gradeStatus: gradeStatus,
+                        date: gradeData.submittedAt ? 
+                            gradeData.submittedAt.toDate().toLocaleDateString() : 
+                            'N/A'
+                    });
+                });
+                
+                console.log('Loaded grades:', allGrades.length);
+                displayGrades(allGrades);
+                
+            } catch (error) {
+                console.error('Error loading grades:', error);
+            }
+        }
+
+        function calculateActivityScore(activityName, result, target = null) {
+            if (!activityName || !result) return 0;
+            
+            const normalized = activityName.toLowerCase();
+            let numericValue = 0;
+
+            if (typeof result === 'string') {
+                const match = result.match(/(\d+\.?\d*)/);
+                if (match) numericValue = parseFloat(match[1]);
+            } else {
+                numericValue = parseFloat(result) || 0;
+            }
+
+            // Target-based scoring
+            if (target && target > 0) {
+                if (normalized.includes('push-up') || normalized.includes('pushup') || 
+                    normalized.includes('sit-up') || normalized.includes('situp')) {
+                    const reps = parseInt(result);
+                    if (reps >= target) return 100;
+                    if (reps >= target * 0.9) return 95;
+                    if (reps >= target * 0.8) return 90;
+                    if (reps >= target * 0.7) return 85;
+                    if (reps >= target * 0.6) return 80;
+                    if (reps >= target * 0.5) return 75;
+                    return Math.max(50, Math.round((reps / target) * 100));
+                } else if (normalized.includes('plank')) {
+                    const seconds = parseInt(result.split(':')[1] || result);
+                    if (seconds >= target) return 100;
+                    if (seconds >= target * 0.9) return 95;
+                    if (seconds >= target * 0.8) return 90;
+                    if (seconds >= target * 0.7) return 85;
+                    if (seconds >= target * 0.6) return 80;
+                    if (seconds >= target * 0.5) return 75;
+                    return Math.max(50, Math.round((seconds / target) * 100));
+                }
+            }
+
+            // Default scoring
+            if (normalized.includes('push-up') || normalized.includes('pushup')) {
+                const reps = numericValue;
+                if (reps >= 40) return 100;
+                if (reps >= 30) return 90;
+                if (reps >= 20) return 80;
+                if (reps >= 15) return 70;
+                if (reps >= 10) return 60;
+                return 50;
+            } else if (normalized.includes('sit-up') || normalized.includes('situp')) {
+                const reps = numericValue;
+                if (reps >= 50) return 100;
+                if (reps >= 40) return 90;
+                if (reps >= 30) return 80;
+                if (reps >= 20) return 70;
+                if (reps >= 15) return 60;
+                return 50;
+            } else if (normalized.includes('plank')) {
+                const seconds = numericValue;
+                if (seconds >= 120) return 100;
+                if (seconds >= 90) return 90;
+                if (seconds >= 60) return 80;
+                if (seconds >= 45) return 70;
+                if (seconds >= 30) return 60;
+                return 50;
+            }
+
+            return numericValue > 0 ? 75 : 0;
+        }
+
+        function calculateGradeLetter(score) {
+            if (score >= 97) return 'A+';
+            if (score >= 93) return 'A';
+            if (score >= 90) return 'A-';
+            if (score >= 87) return 'B+';
+            if (score >= 83) return 'B';
+            if (score >= 80) return 'B-';
+            if (score >= 77) return 'C+';
+            if (score >= 73) return 'C';
+            if (score >= 70) return 'C-';
+            if (score >= 67) return 'D+';
+            if (score >= 63) return 'D';
+            if (score >= 60) return 'D-';
+            return 'F';
+        }
+
+        function getGradeStatus(score) {
+            if (score >= 90) return 'grade-excellent';
+            if (score >= 80) return 'grade-good';
+            if (score >= 70) return 'grade-fair';
+            return 'grade-poor';
+        }
+
+        function displayGrades(grades) {
+            const tableBody = document.getElementById('gradesTableBody');
+            
+            if (grades.length === 0) {
+                tableBody.innerHTML = `
+                    <tr>
+                        <td colspan="7">
+                            <div class="empty-state">
+                                <div class="empty-icon">📊</div>
+                                <div class="empty-title">No Grades Found</div>
+                                <div class="empty-text">No grades have been recorded yet. Grades will appear here once students complete activities.</div>
+                            </div>
+                        </td>
+                    </tr>
+                `;
+                return;
+            }
+            
+            let html = '';
+            grades.forEach(grade => {
+                html += `
+                    <tr>
+                        <td>${grade.studentName || 'Unknown Student'}</td>
+                        <td>${grade.section || 'N/A'}</td>
+                        <td>${grade.testName || 'Unknown Activity'}</td>
+                        <td>
+                            <span class="grade-value ${grade.gradeStatus}">${grade.score.toFixed(1)}</span>
+                        </td>
+                        <td>
+                            <span class="grade-value ${grade.gradeStatus}">${grade.grade}</span>
+                        </td>
+                        <td>${grade.date}</td>
+                        <td>
+                            <div class="action-buttons">
+                                <button class="btn-small btn-edit" onclick="editGrade('${grade.id}')">
+                                    <i class="fas fa-edit"></i> Edit
+                                </button>
+                            </div>
+                        </td>
+                    </tr>
+                `;
+            });
+            
+            tableBody.innerHTML = html;
+        }
+
+        function updateFilters() {
+            const activitySelect = document.getElementById('filterActivity');
+            const bulkActivitySelect = document.getElementById('bulkActivity');
+            
+            activitySelect.innerHTML = '<option value="">All Activities</option>';
+            bulkActivitySelect.innerHTML = '<option value="">Select Activity</option>';
+            
+            const uniqueActivities = [...new Set(allActivities.map(a => a.name))];
+            uniqueActivities.forEach(activityName => {
+                const option = document.createElement('option');
+                option.value = activityName;
+                option.textContent = activityName;
+                activitySelect.appendChild(option);
+                
+                const bulkOption = option.cloneNode(true);
+                bulkActivitySelect.appendChild(bulkOption);
+            });
+        }
+
+        function applyFilters() {
+            const sectionFilter = document.getElementById('filterSection').value;
+            const activityFilter = document.getElementById('filterActivity').value;
+            const studentFilter = document.getElementById('filterStudent').value.toLowerCase();
+            
+            let filteredGrades = allGrades;
+            
+            if (sectionFilter) {
+                filteredGrades = filteredGrades.filter(grade => grade.section === sectionFilter);
+            }
+            
+            if (activityFilter) {
+                filteredGrades = filteredGrades.filter(grade => grade.testName === activityFilter);
+            }
+            
+            if (studentFilter) {
+                filteredGrades = filteredGrades.filter(grade => 
+                    grade.studentName.toLowerCase().includes(studentFilter)
+                );
+            }
+            
+            displayGrades(filteredGrades);
+        }
+
+        function editGrade(gradeId) {
+            const grade = allGrades.find(g => g.id === gradeId);
+            if (!grade) return;
+            
+            document.getElementById('editStudentName').value = grade.studentName || '';
+            document.getElementById('editActivityName').value = grade.testName || '';
+            document.getElementById('editScore').value = grade.score || 0;
+            document.getElementById('editRemarks').value = grade.remarks || '';
+            document.getElementById('editGradeId').value = gradeId;
+            
+            document.getElementById('editGradeModal').style.display = 'flex';
+        }
+
+        function closeEditModal() {
+            document.getElementById('editGradeModal').style.display = 'none';
+        }
+
+        async function saveGrade() {
+            const gradeId = document.getElementById('editGradeId').value;
+            const newScore = parseFloat(document.getElementById('editScore').value);
+            const remarks = document.getElementById('editRemarks').value;
+            
+            if (isNaN(newScore) || newScore < 0 || newScore > 100) {
+                alert('Please enter a valid score between 0 and 100');
+                return;
+            }
+            
+            try {
+                const gradeRef = doc(db, 'testResults', gradeId);
+                await updateDoc(gradeRef, {
+                    score: newScore,
+                    remarks: remarks,
+                    updatedAt: new Date(),
+                    grade: calculateGradeLetter(newScore)
+                });
+                
+                alert('Grade updated successfully!');
+                closeEditModal();
+                await loadGrades(); // Reload grades
+                
+            } catch (error) {
+                console.error('Error updating grade:', error);
+                alert('Error updating grade: ' + error.message);
+            }
+        }
+
+        function showBulkEditModal() {
+            document.getElementById('bulkEditModal').style.display = 'flex';
+        }
+
+        function closeBulkEditModal() {
+            document.getElementById('bulkEditModal').style.display = 'none';
+        }
+
+        async function applyBulkEdit() {
+            const section = document.getElementById('bulkSection').value;
+            const activity = document.getElementById('bulkActivity').value;
+            const adjustment = document.getElementById('bulkAdjustment').value;
+            const value = parseFloat(document.getElementById('bulkValue').value);
+            
+            if (!section || !activity) {
+                alert('Please select both section and activity');
+                return;
+            }
+            
+            if (isNaN(value) || value < 0) {
+                alert('Please enter a valid value');
+                return;
+            }
+            
+            if (!confirm(`This will update grades for ALL students in ${section} for activity ${activity}. Continue?`)) {
+                return;
+            }
+            
+            try {
+                // Get all grades for this section and activity
+                const gradesQuery = query(
+                    collection(db, 'testResults'),
+                    where('professorEmail', '==', currentProfessor.email),
+                    where('section', '==', section),
+                    where('testName', '==', activity)
+                );
+                
+                const gradesSnapshot = await getDocs(gradesQuery);
+                const batch = writeBatch(db);
+                let updatedCount = 0;
+                
+                gradesSnapshot.forEach(docSnap => {
+                    const gradeData = docSnap.data();
+                    let newScore = gradeData.score || 0;
+                    
+                    // Apply adjustment
+                    switch (adjustment) {
+                        case 'add':
+                            newScore += value;
+                            break;
+                        case 'subtract':
+                            newScore -= value;
+                            break;
+                        case 'multiply':
+                            newScore *= (value / 100);
+                            break;
+                        case 'set':
+                            newScore = value;
+                            break;
+                    }
+                    
+                    // Clamp between 0-100
+                    newScore = Math.max(0, Math.min(100, newScore));
+                    
+                    batch.update(docSnap.ref, {
+                        score: newScore,
+                        grade: calculateGradeLetter(newScore),
+                        updatedAt: new Date()
+                    });
+                    
+                    updatedCount++;
+                });
+                
+                await batch.commit();
+                alert(`Updated ${updatedCount} grades successfully!`);
+                closeBulkEditModal();
+                await loadGrades();
+                
+            } catch (error) {
+                console.error('Error bulk updating grades:', error);
+                alert('Error updating grades: ' + error.message);
+            }
+        }
+
+        async function calculateFinalGrades() {
+            try {
+                // Group grades by student
+                const studentGrades = {};
+                
+                allGrades.forEach(grade => {
+                    const studentId = grade.studentEmail || grade.studentId || grade.studentName;
+                    if (!studentId) return;
+                    
+                    if (!studentGrades[studentId]) {
+                        studentGrades[studentId] = {
+                            name: grade.studentName,
+                            section: grade.section,
+                            scores: [],
+                            totalScore: 0
+                        };
+                    }
+                    
+                    studentGrades[studentId].scores.push(grade.score);
+                    studentGrades[studentId].totalScore += grade.score;
+                });
+                
+                // Calculate final grades
+                const finalGrades = [];
+                Object.keys(studentGrades).forEach(studentId => {
+                    const student = studentGrades[studentId];
+                    const averageScore = student.scores.length > 0 ? 
+                        student.totalScore / student.scores.length : 0;
+                    const finalGrade = calculateGradeLetter(averageScore);
+                    const status = getGradeStatus(averageScore);
+                    
+                    finalGrades.push({
+                        name: student.name,
+                        section: student.section,
+                        totalActivities: student.scores.length,
+                        averageScore: averageScore.toFixed(1),
+                        finalGrade: finalGrade,
+                        status: status
+                    });
+                });
+                
+                // Sort by average score (descending)
+                finalGrades.sort((a, b) => b.averageScore - a.averageScore);
+                
+                // Display final grades
+                displayFinalGrades(finalGrades);
+                
+                // Save final grades to database
+                await saveFinalGrades(finalGrades);
+                
+            } catch (error) {
+                console.error('Error calculating final grades:', error);
+                alert('Error calculating final grades: ' + error.message);
+            }
+        }
+
+        function displayFinalGrades(finalGrades) {
+            const tableBody = document.getElementById('finalGradesBody');
+            
+            if (finalGrades.length === 0) {
+                tableBody.innerHTML = `
+                    <tr>
+                        <td colspan="6">
+                            <div class="empty-state">
+                                <div class="empty-icon">📈</div>
+                                <div class="empty-title">No Final Grades Available</div>
+                                <div class="empty-text">No student data available for final grade calculation.</div>
+                            </div>
+                        </td>
+                    </tr>
+                `;
+                return;
+            }
+            
+            let html = '';
+            finalGrades.forEach(grade => {
+                html += `
+                    <tr>
+                        <td>${grade.name}</td>
+                        <td>${grade.section}</td>
+                        <td>${grade.totalActivities}</td>
+                        <td>
+                            <span class="grade-value ${grade.status}">${grade.averageScore}</span>
+                        </td>
+                        <td>
+                            <span class="grade-value ${grade.status}">${grade.finalGrade}</span>
+                        </td>
+                        <td>
+                            <span class="grade-value ${grade.status}">
+                                ${grade.averageScore >= 70 ? 'Passed' : 'Failed'}
+                            </span>
+                        </td>
+                    </tr>
+                `;
+            });
+            
+            tableBody.innerHTML = html;
+        }
+
+        async function saveFinalGrades(finalGrades) {
+            try {
+                const timestamp = new Date();
+                
+                for (const grade of finalGrades) {
+                    // Save to finalGrades collection
+                    await addDoc(collection(db, 'finalGrades'), {
+                        professorEmail: currentProfessor.email,
+                        professorId: currentProfessor.id,
+                        studentName: grade.name,
+                        section: grade.section,
+                        totalActivities: grade.totalActivities,
+                        averageScore: parseFloat(grade.averageScore),
+                        finalGrade: grade.finalGrade,
+                        status: grade.averageScore >= 70 ? 'Passed' : 'Failed',
+                        calculatedAt: timestamp,
+                        semester: getCurrentSemester()
+                    });
+                    
+                    // Update student record with final grade
+                    const studentsQuery = query(
+                        collection(db, 'students'),
+                        where('name', '==', grade.name),
+                        where('section', '==', grade.section)
+                    );
+                    
+                    const studentsSnapshot = await getDocs(studentsQuery);
+                    if (!studentsSnapshot.empty) {
+                        const studentDoc = studentsSnapshot.docs[0];
+                        await updateDoc(studentDoc.ref, {
+                            finalGrade: grade.finalGrade,
+                            averageScore: parseFloat(grade.averageScore),
+                            gradeUpdatedAt: timestamp
+                        });
+                    }
+                }
+                
+                console.log('Final grades saved successfully');
+                
+            } catch (error) {
+                console.error('Error saving final grades:', error);
+            }
+        }
+
+        function getCurrentSemester() {
+            const now = new Date();
+            const month = now.getMonth() + 1;
+            const year = now.getFullYear();
+            
+            if (month >= 8 && month <= 12) {
+                return `1st Semester ${year}`;
+            } else if (month >= 1 && month <= 5) {
+                return `2nd Semester ${year}`;
+            } else {
+                return `Summer ${year}`;
+            }
+        }
+
+        function exportGrades() {
+            if (allGrades.length === 0) {
+                alert('No grades to export');
+                return;
+            }
+            
+            // Create CSV content
+            let csv = 'Student Name,Section,Activity,Score,Grade,Date\n';
+            
+            allGrades.forEach(grade => {
+                csv += `"${grade.studentName || ''}","${grade.section || ''}","${grade.testName || ''}",${grade.score || 0},"${grade.grade || ''}","${grade.date || ''}"\n`;
+            });
+            
+            // Create download link
+            const blob = new Blob([csv], { type: 'text/csv' });
+            const url = window.URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `grades_${new Date().toISOString().split('T')[0]}.csv`;
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            window.URL.revokeObjectURL(url);
+            
+            alert('Grades exported successfully!');
+        }
+
+        window.handleLogout = async function() {
+            if (confirm('Are you sure you want to logout?')) {
+                try {
+                    await signOut(auth);
+                    window.location.href = '/login/index.html';
+                } catch (error) {
+                    console.error('Error logging out:', error);
+                    alert('Error logging out. Please try again.');
+                }
+            }
+        };
+    </script>
+</body>
+</html>

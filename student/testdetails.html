@@ -1,0 +1,1332 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>UMakFit - Test Details</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Manrope:wght@600;800&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css">
+    <style>
+    @import url("https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.min.css");
+    
+    * {
+        -webkit-font-smoothing: antialiased;
+        box-sizing: border-box;
+        font-family: 'Inter', sans-serif;
+    }
+    
+    html, body {
+        margin: 0;
+        height: 100%;
+    }
+    
+    button:focus-visible {
+        outline: 2px solid #4a90e2 !important;
+    }
+    
+    a {
+        text-decoration: none;
+    }
+
+    body {
+        background:#f8fafc;
+        min-height: 100vh;
+    }
+
+    /* Navbar Styles - From first document */
+    .navbar-custom {
+        background: linear-gradient(180deg, rgba(30, 58, 138, 1) 0%, rgba(59, 130, 246, 1) 100%);
+        padding: 20px 0;
+        box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        border-bottom: none;
+        height: auto;
+    }
+
+    .navbar-brand {
+        display: flex;
+        align-items: center;
+        gap: 15px;
+        margin: 0;
+        padding: 0;
+    }
+
+    .navbar-brand-img {
+        height: 60px;
+        width: auto;
+        object-fit: contain;
+    }
+
+    .navbar-brand-text {
+        font-family: "Manrope", Helvetica;
+        font-weight: 800;
+        font-size: 28px;
+        background: linear-gradient(90deg, rgba(245, 158, 11, 1) 0%, rgba(255, 229, 0, 1) 100%);
+        -webkit-background-clip: text;
+        background-clip: text;
+        -webkit-text-fill-color: transparent;
+        line-height: 1;
+    }
+
+    .nav-container {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        flex-wrap: wrap;
+        gap: 20px;
+    }
+
+    .nav-pills-custom {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+        padding: 0;
+        margin: 0;
+        list-style: none;
+    }
+
+    .nav-link-custom {
+        font-family: "Manrope", Helvetica;
+        font-weight: 600;
+        color: #000000;
+        font-size: 14px;
+        padding: 12px 18px;
+        border-radius: 8px;
+        background-color: #ffffff;
+        transition: all 0.3s;
+        border: none;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+        text-decoration: none;
+    }
+
+    .nav-link-custom:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+        color: #000000;
+    }
+
+    .nav-link-custom i {
+        font-size: 14px;
+    }
+
+    .nav-link-custom.active {
+        background: linear-gradient(90deg, rgba(251, 191, 36, 1) 0%, rgba(245, 158, 11, 1) 100%);
+        box-shadow: 0 4px 8px rgba(245, 158, 11, 0.3);
+    }
+
+    .btn-logout-nav {
+        background: linear-gradient(90deg, rgba(251, 191, 36, 1) 0%, rgba(245, 158, 11, 1) 100%);
+        border: none;
+        color: #000000;
+        padding: 8px 20px;
+        border-radius: 8px;
+        font-family: "Manrope", Helvetica;
+        font-weight: 600;
+        font-size: 14px;
+        cursor: pointer;
+        transition: all 0.3s;
+        box-shadow: 0 2px 4px rgba(245, 158, 11, 0.3);
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+    }
+
+    .btn-logout-nav:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 4px 8px rgba(245, 158, 11, 0.4);
+    }
+
+    /* Main Content */
+    .main-content {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 1.5rem; /* CHANGED from 2rem */
+}
+
+/* Back Button */
+.back-button {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px; /* CHANGED from 8px */
+    padding: 8px 16px; /* CHANGED from 10px 20px */
+    border-radius: 8px; /* CHANGED from 13px */
+    border: 1px solid #111b66;
+    background-color: white;
+    color: #1e3a8a;
+    font-family: "Inter", Helvetica;
+    font-weight: 500;
+    font-size: 14px; /* CHANGED from 16px */
+    cursor: pointer;
+    transition: all 0.3s;
+    box-shadow: 0px 2px 4px rgba(0,0,0,0.15); /* CHANGED */
+    margin-bottom: 1.5rem; /* CHANGED from 2rem */
+}
+
+.back-button:hover {
+    transform: translateY(-1px); /* CHANGED from -2px */
+    box-shadow: 0px 4px 8px rgba(0,0,0,0.2); /* CHANGED */
+}
+    /* Test Header */
+    .test-header {
+    text-align: center;
+    margin-bottom: 2rem; /* CHANGED from 3rem */
+}
+
+.test-badge {
+    display: inline-block;
+    background: linear-gradient(90deg, rgba(254, 243, 199, 1) 0%, rgba(253, 230, 138, 1) 100%);
+    padding: 10px 32px; /* CHANGED from 12px 40px */
+    border-radius: 8px; /* CHANGED from 11px */
+    margin-bottom: 0.75rem; /* CHANGED from 1rem */
+}
+
+.test-badge-icon {
+    width: 56px; /* CHANGED from 79px */
+    height: 56px; /* CHANGED from 79px */
+    margin: 0 auto;
+}
+
+.test-category {
+    font-family: "Inter", Helvetica;
+    font-weight: 600;
+    color: #785600;
+    font-size: 15px; /* CHANGED from 20px */
+    text-transform: uppercase;
+    letter-spacing: 0.3px; /* CHANGED from 0.5px */
+}
+
+.test-title {
+    font-family: "Inter", Helvetica;
+    font-weight: 700; /* CHANGED from 600 */
+    color: #1e3a8a;
+    font-size: 2rem; /* CHANGED from 36px */
+    margin: 0.75rem 0; /* CHANGED from 1rem 0 */
+    line-height: 1.3; /* ADDED */
+}
+
+.test-meta {
+    font-family: "Inter", Helvetica;
+    font-weight: 600;
+    color: #1e3a8a;
+    font-size: 15px; /* CHANGED from 20px */
+}
+
+    /* Test Info Cards - New Design */
+.test-info-section {
+    max-width: 900px;
+    margin: 0 auto 2rem;
+}
+
+.info-cards-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1rem;
+}
+
+.info-card-new {
+    background: white;
+    border-radius: 12px;
+    padding: 1.25rem;
+    box-shadow: 0px 2px 8px rgba(0,0,0,0.08);
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.info-card-new:hover {
+    transform: translateY(-3px);
+    box-shadow: 0px 4px 12px rgba(59, 130, 246, 0.15);
+}
+
+.info-card-icon-wrapper {
+    width: 48px;
+    height: 48px;
+    background: linear-gradient(135deg, #dbeafe 0%, #bfdbfe 100%);
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 0.875rem;
+}
+
+.info-card-icon-new {
+    width: 28px;
+    height: 28px;
+}
+
+.info-card-label {
+    font-family: "Inter", Helvetica;
+    font-weight: 700;
+    color: #3b82f6;
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 0.5rem;
+}
+
+.info-card-value {
+    font-family: "Inter", Helvetica;
+    font-weight: 600;
+    color: #1e3a8a;
+    font-size: 14px;
+    line-height: 1.5;
+}
+
+    /* Content Sections */
+.content-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.5rem;
+    margin-bottom: 2rem;
+    max-width: 1200px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.content-card {
+    background: white;
+    border-radius: 16px;
+    padding: 2rem;
+    box-shadow: 0px 4px 12px rgba(0,0,0,0.08);
+    display: flex;
+    flex-direction: column;
+}
+
+.content-card-header {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    margin-bottom: 1.25rem;
+}
+
+.content-card-icon {
+    width: 28px;
+    height: 28px;
+}
+
+.content-card-title {
+    font-family: "Inter", Helvetica;
+    font-weight: 700;
+    color: #1e3a8a;
+    font-size: 18px;
+}
+
+.video-placeholder {
+    width: 100%;
+    height: 300px;
+    background: #f3f4f6;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 1rem;
+    flex-shrink: 0;
+}
+
+.video-placeholder img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 12px;
+}
+
+.video-description {
+    font-family: "Inter", Helvetica;
+    font-weight: 500;
+    color: #6b7280;
+    font-size: 13px;
+    text-align: center;
+    line-height: 1.4;
+}
+    /* Protocol Steps */
+    .protocol-steps {
+    display: flex;
+    flex-direction: column;
+    gap: 0.875rem; /* CHANGED from 1rem */
+}
+
+.protocol-step {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.875rem; /* CHANGED from 1rem */
+}
+
+.step-number {
+    width: 24px; /* CHANGED from 27px */
+    height: 24px; /* CHANGED from 26px */
+    background-color: #3b82f6;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    font-family: "Inter", Helvetica;
+    font-weight: 600;
+    color: white;
+    font-size: 13px; /* CHANGED from 16px */
+}
+
+.step-text {
+    font-family: "Inter", Helvetica;
+    font-weight: 500; /* CHANGED from 600 */
+    color: #1e3a8a;
+    font-size: 13px; /* CHANGED from 14px */
+    padding-top: 2px; /* CHANGED from 3px */
+    line-height: 1.5; /* ADDED */
+}
+    /* Safety Tips */
+.safety-section {
+    background: linear-gradient(90deg, rgba(254, 243, 199, 1) 0%, rgba(253, 230, 138, 1) 100%);
+    border-radius: 16px;
+    padding: 2rem;
+    margin-bottom: 2rem;
+    max-width: 1200px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.safety-header {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    margin-bottom: 1.5rem;
+}
+
+.safety-icon {
+    width: 24px;
+    height: 24px;
+}
+
+.safety-title {
+    font-family: "Inter", Helvetica;
+    font-weight: 700;
+    color: #785600;
+    font-size: 18px;
+}
+
+.safety-tips-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1rem;
+}
+
+.safety-tip {
+    background: white;
+    border-radius: 12px;
+    padding: 1.25rem 1rem;
+    box-shadow: 0px 2px 8px rgba(0,0,0,0.1);
+    text-align: center;
+    transition: transform 0.2s, box-shadow 0.2s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.safety-tip:hover {
+    transform: translateY(-2px);
+    box-shadow: 0px 4px 12px rgba(0,0,0,0.15);
+}
+
+.safety-tip-text {
+    font-family: "Inter", Helvetica;
+    font-weight: 600;
+    color: #785600;
+    font-size: 13px;
+    line-height: 1.5;
+}
+    /* Start Test Button */
+   .start-test-container {
+    text-align: center;
+    margin-top: 2rem; /* CHANGED from 3rem */
+    margin-bottom: 2rem; /* ADDED */
+}
+
+.btn-start-test {
+    background: linear-gradient(90deg, rgba(18, 27, 103, 1) 0%, rgba(59, 130, 246, 1) 100%);
+    border: none;
+    color: white;
+    padding: 12px 40px; /* CHANGED from 15px 50px */
+    border-radius: 8px; /* CHANGED from 5px */
+    font-family: "Inter", Helvetica;
+    font-weight: 600; /* CHANGED from 500 */
+    font-size: 15px; /* CHANGED from 16px */
+    cursor: pointer;
+    transition: all 0.3s;
+    box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3); /* CHANGED */
+}
+
+.btn-start-test:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 16px rgba(59, 130, 246, 0.4); /* CHANGED */
+}
+
+    /* Loading Screen */
+    .loading {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(255, 255, 255, 0.98);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        z-index: 9999;
+        flex-direction: column;
+        gap: 20px;
+    }
+
+    .spinner {
+        border: 4px solid #e5e7eb;
+        border-top: 4px solid #3b82f6;
+        border-radius: 50%;
+        width: 50px;
+        height: 50px;
+        animation: spin 1s linear infinite;
+    }
+
+    @keyframes spin {
+        0% { transform: rotate(0deg); }
+        100% { transform: rotate(360deg); }
+    }
+
+    .loading-text {
+        font-family: "Inter", sans-serif;
+        font-weight: 500;
+        color: #475569;
+        font-size: 16px;
+    }
+
+    /* Responsive */
+    @media (max-width: 992px) {
+    .main-content {
+        padding: 1.25rem;
+    }
+    
+    .content-grid {
+        grid-template-columns: 1fr;
+        max-width: 100%;
+    }
+    
+    .safety-section {
+    max-width: 100%;
+    }
+
+    .safety-tips-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 1rem;
+    }
+
+    .video-placeholder {
+        height: 280px;
+    }
+
+    .info-cards-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .test-info-section {
+        max-width: 100%;
+    }
+}
+
+@media (max-width: 768px) {
+    .main-content {
+        padding: 1rem;
+    }
+
+    .test-badge-icon {
+        width: 48px;
+        height: 48px;
+    }
+
+    .test-title {
+        font-size: 1.5rem;
+    }
+
+    .test-meta {
+        font-size: 13px;
+    }
+
+    .content-card {
+        padding: 1.5rem;
+    }
+
+    .content-card-title {
+        font-size: 16px;
+    }
+
+    .video-placeholder {
+        height: 220px;
+    }
+    
+    .safety-tips-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0.875rem;
+    }
+
+    .safety-tip {
+        padding: 1rem 0.75rem;
+    }
+
+    .safety-tip-text {
+        font-size: 12px;
+    }
+
+
+    .btn-start-test {
+        padding: 10px 32px;
+        font-size: 14px;
+    }
+
+    .info-card-new {
+        padding: 1rem;
+    }
+
+    .info-card-icon-wrapper {
+        width: 40px;
+        height: 40px;
+    }
+
+    .info-card-icon-new {
+        width: 24px;
+        height: 24px;
+    }
+
+    .info-card-label {
+        font-size: 10px;
+    }
+
+    .info-card-value {
+        font-size: 13px;
+    }
+}
+
+@media (max-width: 576px) {
+    .test-category {
+        font-size: 13px; /* ADDED */
+    }
+
+    .test-title {
+        font-size: 1.25rem; /* ADDED */
+    }
+
+    .safety-tips-grid {
+    grid-template-columns: 1fr;
+    gap: 0.75rem;
+    }
+
+    .safety-tip-text {
+        font-size: 13px;
+    }
+}
+    </style>
+</head>
+<body>
+    <div id="loadingScreen" class="loading">
+        <div class="spinner"></div>
+        <div class="loading-text">Loading Test Details...</div>
+    </div>
+
+    <div id="mainContent" style="display: none;">
+        <!-- Navigation -->
+        <nav class="navbar navbar-expand-lg navbar-custom">
+            <div class="container">
+                <div class="nav-container w-100">
+                    <a class="navbar-brand" href="#">
+                        <img src="https://c.animaapp.com/vkhEa8zW/img/screenshot-2025-09-19-2-53-51-pm-removebg-preview-3@2x.png" 
+                             alt="UMak Logo" class="navbar-brand-img">
+                        <span class="navbar-brand-text">UMakFit</span>
+                    </a>
+                    
+                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    
+                    <div class="collapse navbar-collapse" id="navbarNav">
+                        <ul class="nav-pills-custom ms-auto">
+                            <li class="nav-item">
+                                <a class="nav-link-custom" href="./studentDashboard.html">
+                                    <i class="bi bi-speedometer2"></i> Dashboard
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link-custom" href="./studentProfile.html">
+                                    <i class="bi bi-person-circle"></i> Profile
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link-custom active" href="./test.html">
+                                    <i class="bi bi-clipboard-check"></i> Test
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link-custom" href="./progress.html">
+                                    <i class="bi bi-graph-up"></i> Progress
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link-custom" href="#">
+                                    <i class="bi bi-book"></i> Learn
+                                </a>
+                            </li>
+                            <li class="nav-item d-flex align-items-center gap-2 ms-2">
+                                <button class="btn-logout-nav" onclick="handleLogout()">
+                                    <i class="bi bi-box-arrow-right"></i> Logout
+                                </button>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </nav>
+
+        <div class="main-content">
+            <!-- Back Button -->
+            <button class="back-button" onclick="window.history.back()">
+                <i class="bi bi-arrow-left"></i> Back to test
+            </button>
+
+            <!-- Test Header -->
+            <div class="test-header">
+                <div class="test-badge">
+                    <img class="test-badge-icon" id="testBadgeIcon" src="https://c.animaapp.com/pVU46Rgb/img/image-152@2x.png" alt="Test Icon">
+                </div>
+                <div class="test-category" id="testCategory">LOADING...</div>
+                <h1 class="test-title" id="testTitle">Loading Test...</h1>
+                <div class="test-meta" id="testMeta">⏱️ Duration: Loading... | 🎯 Difficulty: Loading...</div>
+            </div>
+                <!-- Test Info Cards -->
+<div class="test-info-section">
+    <div class="info-cards-grid">
+        <div class="info-card-new">
+            <div class="info-card-icon-wrapper">
+                <img class="info-card-icon-new" id="objectiveIconNew" src="https://c.animaapp.com/HN7hFbsr/img/image-148@2x.png" alt="Objective">
+            </div>
+            <div class="info-card-label">OBJECTIVE</div>
+            <div class="info-card-value" id="objectiveTextNew">Loading...</div>
+        </div>
+        
+        <div class="info-card-new">
+            <div class="info-card-icon-wrapper">
+                <img class="info-card-icon-new" id="scoringIconNew" src="https://c.animaapp.com/HN7hFbsr/img/image-157@2x.png" alt="Scoring">
+            </div>
+            <div class="info-card-label">SCORING</div>
+            <div class="info-card-value" id="scoringTextNew">Loading...</div>
+        </div>
+        
+        <div class="info-card-new">
+            <div class="info-card-icon-wrapper">
+                <img class="info-card-icon-new" id="requirementsIconNew" src="https://c.animaapp.com/HN7hFbsr/img/image-158@2x.png" alt="Requirements">
+            </div>
+            <div class="info-card-label">REQUIREMENTS</div>
+            <div class="info-card-value" id="requirementsTextNew">Loading...</div>
+        </div>
+    </div>
+</div>
+           
+
+            <!-- Content Grid -->
+            <div class="content-grid">
+                <!-- Video Demonstration -->
+                <div class="content-card">
+                    <div class="content-card-header">
+                        <img class="content-card-icon" src="https://c.animaapp.com/pVU46Rgb/img/image-159@2x.png" alt="Video Icon">
+                        <h2 class="content-card-title">Video Demonstration</h2>
+                    </div>
+                    <div class="video-placeholder">
+                        <img id="testVideo" src="https://c.animaapp.com/pVU46Rgb/img/image-82.png" alt="Test demonstration">
+                    </div>
+                    <p class="video-description" id="videoDescription">Loading video description...</p>
+                </div>
+
+                <!-- Test Protocol -->
+                <div class="content-card">
+                    <div class="content-card-header">
+                        <img class="content-card-icon" src="https://c.animaapp.com/pVU46Rgb/img/image-160@2x.png" alt="Protocol Icon">
+                        <h2 class="content-card-title">Test Protocol</h2>
+                    </div>
+                    <div class="protocol-steps" id="protocolSteps">
+                        <!-- Protocol steps will be dynamically inserted here -->
+                    </div>
+                </div>
+            </div>
+
+            <!-- Safety Tips -->
+            <div class="safety-section">
+                <div class="safety-header">
+                    <img class="safety-icon" src="https://c.animaapp.com/pVU46Rgb/img/image-161@2x.png" alt="Safety Icon">
+                    <h3 class="safety-title">Safety Tips</h3>
+                </div>
+                <div class="safety-tips-grid" id="safetyTipsGrid">
+                    <!-- Safety tips will be dynamically inserted here -->
+                </div>
+            </div>
+
+            <!-- Start Test Button -->
+            <div class="start-test-container">
+                <button class="btn-start-test" id="startTestBtn" onclick="startTest()">Start Test Now</button>
+            </div>
+        </div>
+    </div>
+
+    <script type="module">
+        import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js';
+        import { getAuth, onAuthStateChanged, signOut } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js';
+        import { getFirestore, doc, getDoc, collection, query, where, getDocs } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js';
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyAgaLunqEf2gs6dSpF_sz1hV5XQ5Wm52jo",
+            authDomain: "umakfit-e3b1d.firebaseapp.com",
+            projectId: "umakfit-e3b1d",
+            storageBucket: "umakfit-e3b1d.appspot.com",
+            messagingSenderId: "276569891504",
+            appId: "1:276569891504:web:39b1732b519f4d8b785175"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+        const db = getFirestore(app);
+
+        let currentUser = null;
+        let currentTest = null;
+
+        // Test data mapping
+       const testData = {
+    '3-Minute Step Test': {
+        category: 'CARDIORESPIRATORY ENDURANCE TEST',
+        icon: 'https://c.animaapp.com/HN7hFbsr/img/image-148@2x.png',
+        badgeIcon: 'https://c.animaapp.com/pVU46Rgb/img/image-152@2x.png',
+        getDuration: (target) => target ? `${target} minutes` : '3 minutes',
+        difficulty: 'Beginner',
+        objective: 'Measure heart rate recovery after a brief, sub-maximal exercise bout',
+        scoring: 'Lower recovery heart rate indicates better cardiorespiratory fitness',
+        requirements: '12-inch step bench, metronome (96 bpm), stopwatch',
+        video: 'https://c.animaapp.com/pVU46Rgb/img/image-82.png',
+        videoDescription: 'Watch this video to learn proper step test technique with 4-count rhythm',
+        protocol: [
+            'Set metronome to 96 bpm for a 4-count rhythm: "UP, UP, DOWN, DOWN"',
+            'Step up with right foot, then left foot (24 steps per minute)',
+            'Step down with right foot, then left foot',
+            'Continue for exactly 3 minutes following the rhythm',
+            'Stop immediately after 3 minutes and sit down',
+            'After 5-second rest, count pulse for 60 seconds',
+            'Record your recovery heart rate'
+        ],
+        safetyTips: [
+            'Use a stable 12-inch platform',
+            'Wear supportive shoes',
+            'Stop if feeling dizzy',
+            'Maintain steady 24 steps/min pace'
+        ]
+    },
+    'Curl-Up Test': {
+        category: 'MUSCULAR ENDURANCE TEST',
+        icon: 'https://c.animaapp.com/HN7hFbsr/img/image-150@2x.png',
+        badgeIcon: 'https://c.animaapp.com/pVU46Rgb/img/image-152@2x.png',
+        getDuration: (target) => target ? `Target: ${target} curl-ups` : 'Maximum repetitions',
+        difficulty: 'Beginner',
+        objective: 'Measure abdominal muscle endurance through repeated contractions',
+        scoring: 'More repetitions at correct pace indicates better muscular endurance',
+        requirements: 'Mat, tape/cardboard (4.5 inches apart), metronome (3-sec intervals)',
+        video: 'https://c.animaapp.com/pVU46Rgb/img/image-82.png',
+        videoDescription: 'Watch proper curl-up technique and pacing',
+        protocol: [
+            'Make tape marks 4.5 inches apart on the ground',
+            'Lie supine with arms straight, fingertips at first mark',
+            'Bend knees with feet flat, heels near buttocks',
+            'Curl up and slide fingers to touch second tape mark',
+            'Return to starting position (shoulder blades touch floor)',
+            'Perform one curl every 3 seconds following metronome',
+            'Stop when you can no longer maintain the pace',
+            'Record total number of completed curl-ups'
+        ],
+        safetyTips: [
+            'Keep heels on floor',
+            'Maintain smooth movement',
+            'Don\'t pull on neck',
+            'Stop if back pain occurs'
+        ]
+    },
+    'Push-Up Test': {
+        category: 'MUSCULAR ENDURANCE TEST',
+        icon: 'https://c.animaapp.com/HN7hFbsr/img/image-150@2x.png',
+        badgeIcon: 'https://c.animaapp.com/pVU46Rgb/img/image-152@2x.png',
+        getDuration: (target) => target ? `Target: ${target} push-ups` : 'Maximum repetitions',
+        difficulty: 'Intermediate',
+        objective: 'Measure upper body muscular endurance of chest, shoulders, and triceps',
+        scoring: 'More push-ups with proper form indicates better muscular endurance',
+        requirements: 'Floor mat, stopwatch (optional)',
+        video: 'https://c.animaapp.com/pVU46Rgb/img/image-82.png',
+        videoDescription: 'Watch proper push-up form and technique',
+        protocol: [
+            'Men: Start in standard plank, hands shoulder-width apart',
+            'Women: Modified position with knees on ground',
+            'Keep back straight from head to heels (or knees)',
+            'Lower body until elbows bent at 90 degrees',
+            'Chest should nearly touch floor',
+            'Push back up until arms fully extended',
+            'Perform as many as possible without stopping',
+            'Stop when unable to maintain proper form'
+        ],
+        safetyTips: [
+            'Keep core engaged',
+            'Maintain straight body line',
+            'Breathe consistently',
+            'Stop if shoulder pain occurs'
+        ]
+    },
+    'Sit-and-Reach': {
+        category: 'FLEXIBILITY TEST',
+        icon: 'https://c.animaapp.com/HN7hFbsr/img/image-48@2x.png',
+        badgeIcon: 'https://c.animaapp.com/pVU46Rgb/img/image-152@2x.png',
+        getDuration: (target) => target ? `Target: ${target} cm` : '3 attempts',
+        difficulty: 'Beginner',
+        objective: 'Measure flexibility of lower back and hamstring muscles',
+        scoring: 'Greater reach distance indicates better flexibility',
+        requirements: 'Sit-and-reach box (or ruler and step), mat',
+        video: 'https://c.animaapp.com/pVU46Rgb/img/image-82.png',
+        videoDescription: 'Learn proper sit-and-reach technique for accurate measurement',
+        protocol: [
+            'Remove shoes and sit with legs fully extended',
+            'Place feet flat against the sit-and-reach box',
+            'Place one hand on top of the other, fingers aligned',
+            'Slowly reach forward keeping knees straight',
+            'Slide hands along measuring scale as far as possible',
+            'Hold final position for at least 1-2 seconds',
+            'Perform 3 practice reaches, then 1 recorded test',
+            'Record distance reached (positive if past toes)'
+        ],
+        safetyTips: [
+            'Warm up with light stretching',
+            'Avoid bouncing movements',
+            'Stretch slowly and steadily',
+            'Stop if sharp pain occurs'
+        ]
+    },
+    'Skinfold Caliper': {
+        category: 'BODY COMPOSITION TEST',
+        icon: 'https://c.animaapp.com/HN7hFbsr/img/image-151@2x.png',
+        badgeIcon: 'https://c.animaapp.com/pVU46Rgb/img/image-152@2x.png',
+        getDuration: (target) => target ? `Target: ${target}% body fat` : '10-15 minutes',
+        difficulty: 'Advanced',
+        objective: 'Estimate body fat percentage by measuring subcutaneous fat thickness',
+        scoring: 'Lower body fat % indicates leaner body composition (varies by age/sex)',
+        requirements: 'Skinfold calipers, marker, trained professional',
+        video: 'https://c.animaapp.com/pVU46Rgb/img/image-82.png',
+        videoDescription: 'Professional demonstration of proper skinfold measurement technique',
+        protocol: [
+            'Mark measurement sites (3 or 7 sites depending on protocol)',
+            'Men (3-site): Chest, Abdomen, Thigh',
+            'Women (3-site): Triceps, Suprailiac (hip), Thigh',
+            'Pinch skin and fat layer, pulling away from muscle',
+            'Place calipers 1 cm away from fingers',
+            'Read measurement after 2 seconds',
+            'Take 2-3 measurements at each site',
+            'Use equation to calculate body fat percentage'
+        ],
+        safetyTips: [
+            'Trained professional required',
+            'Same tester for all measurements',
+            'Measure on right side of body',
+            'Mark sites carefully'
+        ]
+    }
+};
+
+        function getTestData(testName) {
+    // Return test data based on test name
+    return testData[testName] || {
+        category: 'FITNESS TEST',
+        icon: 'https://c.animaapp.com/HN7hFbsr/img/image-148@2x.png',
+        badgeIcon: 'https://c.animaapp.com/pVU46Rgb/img/image-152@2x.png',
+        getDuration: () => 'Varies',
+        difficulty: 'Moderate',
+        objective: 'Complete the test according to instructions',
+        scoring: 'Based on performance metrics',
+        requirements: 'Follow test-specific requirements',
+        video: 'https://c.animaapp.com/pVU46Rgb/img/image-82.png',
+        videoDescription: 'Watch this video for demonstration',
+        protocol: ['Follow the test instructions carefully'],
+        safetyTips: ['Warm up properly', 'Stop if you feel pain', 'Maintain proper form', 'Stay hydrated']
+    };
+}
+        function getTargetLabel(testName) {
+    const normalized = testName.toLowerCase();
+    if (normalized.includes('push-up') || normalized.includes('pushup')) return 'push-ups';
+    if (normalized.includes('sit-up') || normalized.includes('situp')) return 'sit-ups';
+    if (normalized.includes('plank')) return 'seconds';
+    if (normalized.includes('step test')) return 'minutes';
+    if (normalized.includes('sit-and-reach')) return 'cm';
+    return 'units';
+}
+        function populateTestDetails(test) {    
+    const testInfo = getTestData(test.testName);
+    
+    // Update header
+    document.getElementById('testBadgeIcon').src = testInfo.badgeIcon;
+    document.getElementById('testCategory').textContent = testInfo.category;
+    document.getElementById('testTitle').textContent = test.testName;
+    
+    // Update meta with dynamic duration based on target
+    const duration = typeof testInfo.getDuration === 'function' 
+        ? testInfo.getDuration(test.testTarget) 
+        : testInfo.duration;
+
+    document.getElementById('testMeta').textContent = `⏱️ Duration: ${duration} | 🎯 Difficulty: ${testInfo.difficulty}`;
+
+        // Populate info cards with category-specific icon
+        const categoryIcon = getCategoryIcon(test.testName);
+
+        // Set all three info card icons to the category icon
+        document.getElementById('objectiveIconNew').src = categoryIcon;
+        document.getElementById('objectiveTextNew').textContent = testInfo.objective;
+
+        document.getElementById('scoringIconNew').src = categoryIcon;
+        document.getElementById('scoringTextNew').textContent = testInfo.scoring;
+
+        document.getElementById('requirementsIconNew').src = categoryIcon;
+
+        // Update requirements text to include target if available
+        let requirementsText = testInfo.requirements;
+        if (test.testTarget) {
+            const targetLabel = getTargetLabel(test.testName);
+            requirementsText += ` | Target: ${test.testTarget} ${targetLabel}`;
+        }
+        document.getElementById('requirementsTextNew').textContent = requirementsText;
+
+// UPDATE VIDEO SECTION - Use uploaded video if available
+    const videoPlaceholder = document.querySelector('.video-placeholder');
+if (test.videoURL) {
+    // Show video thumbnail with play button overlay
+    let videoId = '';
+    
+    // Handle different YouTube URL formats
+    if (test.videoURL.includes('youtube.com/watch?v=')) {
+        videoId = test.videoURL.split('v=')[1].split('&')[0];
+    } else if (test.videoURL.includes('youtu.be/')) {
+        videoId = test.videoURL.split('youtu.be/')[1].split('?')[0];
+    } else if (test.videoURL.includes('youtube.com/embed/')) {
+        videoId = test.videoURL.split('embed/')[1].split('?')[0];
+    }
+    
+    if (videoId) {
+        // Create clickable thumbnail with YouTube thumbnail
+        videoPlaceholder.innerHTML = `
+            <div style="position: relative; width: 100%; height: 100%; cursor: pointer; border-radius: 8px; overflow: hidden;" onclick="window.open('${test.videoURL}', '_blank')">
+                <img src="https://img.youtube.com/vi/${videoId}/maxresdefault.jpg" 
+                     alt="Video Thumbnail" 
+                     style="width: 100%; height: 100%; object-fit: cover;"
+                     onerror="this.src='https://img.youtube.com/vi/${videoId}/hqdefault.jpg'">
+                <div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); 
+                            background: rgba(255, 0, 0, 0.9); width: 80px; height: 80px; 
+                            border-radius: 50%; display: flex; align-items: center; justify-content: center;
+                            box-shadow: 0 4px 12px rgba(0,0,0,0.3);">
+                    <div style="width: 0; height: 0; border-left: 25px solid white; 
+                                border-top: 15px solid transparent; border-bottom: 15px solid transparent;
+                                margin-left: 5px;"></div>
+                </div>
+                <div style="position: absolute; bottom: 0; left: 0; right: 0; 
+                            background: linear-gradient(to top, rgba(0,0,0,0.8), transparent); 
+                            padding: 20px; color: white; font-weight: 600;">
+                    🎥 Click to Watch on YouTube
+                </div>
+            </div>
+        `;
+        document.getElementById('videoDescription').textContent = '📺 Click the video to watch the instruction from your professor';
+    } else {
+        // Fallback if video ID extraction fails
+        videoPlaceholder.innerHTML = `
+            <div style="padding: 40px; text-align: center; background: #fee2e2; border-radius: 8px;">
+                <div style="font-size: 48px; margin-bottom: 15px;">⚠️</div>
+                <p style="color: #991b1b; font-weight: 600; margin: 0 0 10px 0; font-size: 16px;">
+                    Video URL format not supported
+                </p>
+                <p style="color: #7f1d1d; font-size: 13px; margin: 0;">
+                    Please contact your professor
+                </p>
+            </div>
+        `;
+        document.getElementById('videoDescription').textContent = 'Unable to load video';
+    }
+} else {
+    // Use default placeholder image
+    videoPlaceholder.innerHTML = `
+        <div style="display: flex; align-items: center; justify-content: center; flex-direction: column; gap: 15px; padding: 40px; background: #f3f4f6; border-radius: 8px;">
+            <div style="font-size: 64px; opacity: 0.5;">📹</div>
+            <p style="color: #6b7280; font-size: 15px; margin: 0; font-weight: 500;">
+                No instruction video available for this test
+            </p>
+        </div>
+    `;
+    document.getElementById('videoDescription').textContent = testInfo.videoDescription;
+}
+    
+    // Update protocol steps
+    const protocolStepsContainer = document.getElementById('protocolSteps');
+    protocolStepsContainer.innerHTML = '';
+    testInfo.protocol.forEach((step, index) => {
+        const stepElement = document.createElement('div');
+        stepElement.className = 'protocol-step';
+        stepElement.innerHTML = `
+            <div class="step-number">${index + 1}</div>
+            <div class="step-text">${step}</div>
+        `;
+        protocolStepsContainer.appendChild(stepElement);
+    });
+    
+    // Update safety tips
+    const safetyTipsContainer = document.getElementById('safetyTipsGrid');
+    safetyTipsContainer.innerHTML = '';
+    testInfo.safetyTips.forEach(tip => {
+        const tipElement = document.createElement('div');
+        tipElement.className = 'safety-tip';
+        tipElement.innerHTML = `<p class="safety-tip-text">${tip}</p>`;
+        safetyTipsContainer.appendChild(tipElement);
+    });
+    
+    // Store test ID for starting the test
+    document.getElementById('startTestBtn').setAttribute('data-test-id', test.id);
+}
+        function getCategoryIcon(testName) {
+    const normalized = testName.toLowerCase();
+    
+    // Cardiorespiratory Endurance
+    if (normalized.includes('step test') || normalized.includes('3-minute')) {
+        return 'https://c.animaapp.com/HN7hFbsr/img/image-148@2x.png';
+    }
+    
+    // Muscular Endurance
+    if (normalized.includes('push-up') || normalized.includes('pushup') || 
+        normalized.includes('curl-up')) {
+        return 'https://c.animaapp.com/HN7hFbsr/img/image-150@2x.png';
+    }
+    
+    // Flexibility
+    if (normalized.includes('sit-and-reach')) {
+        return 'https://c.animaapp.com/HN7hFbsr/img/image-48@2x.png';
+    }
+    
+    // Body Composition
+    if (normalized.includes('skinfold') || normalized.includes('caliper')) {
+        return 'https://c.animaapp.com/HN7hFbsr/img/image-151@2x.png';
+    }
+    
+    // Default fallback
+    return 'https://c.animaapp.com/HN7hFbsr/img/image-148@2x.png';
+}
+       async function checkStudentAttempts(testId, userId) {
+    try {
+        // Query testResults for this student's previous attempts
+        const resultsQuery = query(
+            collection(db, 'testResults'),
+            where('testId', '==', testId),
+            where('studentId', '==', userId)
+        );
+        
+        const resultsSnapshot = await getDocs(resultsQuery);
+        
+        let attempts = [];
+        let highestScore = 0;
+        let perfectScore = false;
+        
+        resultsSnapshot.forEach((doc) => {
+            const data = doc.data();
+            attempts.push(data);
+            
+            const score = calculateTestScore(data.testName, data.result, data.testTarget);
+            if (score > highestScore) {
+                highestScore = score;
+            }
+            if (score === 100) {
+                perfectScore = true;
+            }
+        });
+        
+        return {
+            attemptCount: attempts.length,
+            attempts: attempts,
+            highestScore: highestScore,
+            perfectScore: perfectScore
+        };
+    } catch (error) {
+        console.error('Error checking attempts:', error);
+        return { attemptCount: 0, attempts: [], highestScore: 0, perfectScore: false };
+    }
+}
+
+// ADD THIS HELPER FUNCTION:
+function calculateTestScore(testName, result, testTarget = null) {
+    const normalized = testName.toLowerCase();
+    
+    if (testTarget && testTarget > 0) {
+        const value = parseFloat(result);
+        
+        if (normalized.includes('push-up') || normalized.includes('pushup') || 
+            normalized.includes('sit-up') || normalized.includes('situp')) {
+            const reps = parseInt(result);
+            if (reps >= testTarget) return 100;
+            if (reps >= testTarget * 0.9) return 95;
+            if (reps >= testTarget * 0.8) return 90;
+            if (reps >= testTarget * 0.7) return 85;
+            if (reps >= testTarget * 0.6) return 80;
+            if (reps >= testTarget * 0.5) return 75;
+            return Math.max(50, Math.round((reps / testTarget) * 100));
+        } else if (normalized.includes('plank')) {
+            const seconds = parseInt(result.split(':')[1] || result);
+            if (seconds >= testTarget) return 100;
+            if (seconds >= testTarget * 0.9) return 95;
+            if (seconds >= testTarget * 0.8) return 90;
+            if (seconds >= testTarget * 0.7) return 85;
+            if (seconds >= testTarget * 0.6) return 80;
+            if (seconds >= testTarget * 0.5) return 75;
+            return Math.max(50, Math.round((seconds / testTarget) * 100));
+        } else if (normalized.includes('sit-and-reach')) {
+            const distance = parseFloat(result);
+            if (distance >= testTarget) return 100;
+            if (distance >= testTarget * 0.9) return 95;
+            if (distance >= testTarget * 0.8) return 90;
+            if (distance >= testTarget * 0.7) return 85;
+            if (distance >= testTarget * 0.6) return 80;
+            if (distance >= testTarget * 0.5) return 75;
+            return Math.max(50, Math.round((distance / testTarget) * 100));
+        }
+    }
+    
+    // Fallback scoring
+    if (normalized.includes('push-up') || normalized.includes('pushup')) {
+        const reps = parseInt(result);
+        if (reps >= 40) return 100;
+        if (reps >= 30) return 90;
+        if (reps >= 20) return 80;
+        if (reps >= 15) return 70;
+        if (reps >= 10) return 60;
+        return 50;
+    } else if (normalized.includes('plank')) {
+        const seconds = parseInt(result.split(':')[1] || result);
+        if (seconds >= 120) return 100;
+        if (seconds >= 90) return 90;
+        if (seconds >= 60) return 80;
+        if (seconds >= 45) return 70;
+        if (seconds >= 30) return 60;
+        return 50;
+    }
+    
+    return 75;
+}
+        async function loadTestDetails(testId) {
+    try {
+        const testDoc = await getDoc(doc(db, 'scheduledTests', testId));
+        if (testDoc.exists()) {
+            currentTest = { id: testDoc.id, ...testDoc.data() };
+            
+            // CHECK STUDENT ATTEMPTS
+            const attemptInfo = await checkStudentAttempts(testId, currentUser.uid);
+            currentTest.studentAttemptInfo = attemptInfo;
+            
+            populateTestDetails(currentTest);
+            
+            // UPDATE START BUTTON based on attempts
+            updateStartButton(currentTest, attemptInfo);
+        } else {
+            console.error('Test not found');
+            alert('Test not found. Please try again.');
+            window.history.back();
+        }
+    } catch (error) {
+        console.error('Error loading test details:', error);
+        alert('Error loading test details. Please try again.');
+        window.history.back();
+    }
+}
+
+// ADD THIS NEW FUNCTION to update the start button:
+function updateStartButton(test, attemptInfo) {
+    const startBtn = document.getElementById('startTestBtn');
+    const attemptsAllowed = test.attemptsAllowed || 1;
+    
+    if (attemptInfo.perfectScore) {
+        // Already got perfect score
+        startBtn.textContent = '✅ Perfect Score Achieved!';
+        startBtn.disabled = true;
+        startBtn.style.background = 'linear-gradient(90deg, #10b981 0%, #059669 100%)';
+        startBtn.style.cursor = 'not-allowed';
+        startBtn.style.opacity = '0.7';
+    } else if (attemptInfo.attemptCount >= attemptsAllowed) {
+        // Used all attempts
+        startBtn.textContent = `🔒 All ${attemptsAllowed} Attempts Used`;
+        startBtn.disabled = true;
+        startBtn.style.background = 'linear-gradient(90deg, #6b7280 0%, #4b5563 100%)';
+        startBtn.style.cursor = 'not-allowed';
+        startBtn.style.opacity = '0.7';
+    } else {
+        // Can still attempt
+        const attemptNumber = attemptInfo.attemptCount + 1;
+        if (attemptNumber > 1) {
+            startBtn.innerHTML = `🔄 Start Attempt ${attemptNumber}/${attemptsAllowed}`;
+        } else {
+            startBtn.innerHTML = `Start Test Now (${attemptNumber}/${attemptsAllowed})`;
+        }
+    }
+}
+
+        function getUrlParams() {
+            const urlParams = new URLSearchParams(window.location.search);
+            return {
+                testId: urlParams.get('testId'),
+                testName: urlParams.get('testName')
+            };
+        }
+
+        onAuthStateChanged(auth, async (user) => {
+            const loadingScreen = document.getElementById('loadingScreen');
+            const mainContent = document.getElementById('mainContent');
+
+            if (user) {
+                try {
+                    currentUser = user;
+                    const { testId } = getUrlParams();
+                    
+                    if (testId) {
+                        await loadTestDetails(testId);
+                    } else {
+                        alert('No test specified. Redirecting to test page.');
+                        window.location.href = './test.html';
+                    }
+                    
+                    loadingScreen.style.display = 'none';
+                    mainContent.style.display = 'block';
+                } catch (error) {
+                    console.error('Error loading page:', error);
+                    alert('Error loading page. Please try again.');
+                }
+            } else {
+                window.location.href = '../login/index.html';
+            }
+        });
+
+        window.handleLogout = async function() {
+            if (confirm('Are you sure you want to logout?')) {
+                try {
+                    await signOut(auth);
+                    window.location.href = '../login/index.html';
+                } catch (error) {
+                    console.error('Error logging out:', error);
+                    alert('Error logging out. Please try again.');
+                }
+            }
+        };
+
+       window.startTest = function() {
+    if (currentTest) {
+        // Navigate to the actual test taking page
+        window.location.href = `./activetest.html?testId=${currentTest.id}&testName=${encodeURIComponent(currentTest.testName)}`;
+    } else {
+        alert('Test data not loaded. Please try again.');
+    }
+};
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
